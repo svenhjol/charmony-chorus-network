@@ -1,0 +1,6 @@
+{
+  "pack": {
+    "description": "Chorus Network resources",
+    "pack_format": ${pack_version}
+  }
+}

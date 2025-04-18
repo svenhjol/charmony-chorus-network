@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "svenhjol.charmony.chorus_network.common.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "${refmap_file}",
+  "plugin": "svenhjol.charmony.chorus_network.common.mixins.CommonMixinConfig",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "chorus_network.ChorusFlowerBlockMixin"
+  ]
+}

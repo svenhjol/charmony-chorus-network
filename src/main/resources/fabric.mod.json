@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "charmony-chorus-network",
+  "version": "${mod_version}",
+
+  "name": "Chorus Network",
+  "description": "Chorus network.",
+  "authors": [
+    "svenhjol"
+  ],
+  "icon": "assets/charmony-chorus-network/textures/gui/sprites/icon.png",
+  "license": "MIT",
+  "environment": "*",
+  "mixins": [
+    "charmony-chorus-network.client.mixins.json",
+    "charmony-chorus-network.common.mixins.json"
+  ],
+  "accessWidener": "charmony-chorus-network.accesswidener",
+
+  "entrypoints": {
+    "main": [
+      "svenhjol.charmony.chorus_network.common.CommonInitializer"
+    ],
+    "client": [
+      "svenhjol.charmony.chorus_network.client.ClientInitializer"
+    ]
+  },
+
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "*",
+    "java": ">=21",
+    "fabric-api": "*",
+    "charmony": ">=${charmony_version}",
+    "charmony-api": ">=${api_version}"
+  },
+
+  "contact": {
+    "homepage": "https://charmony.dev/mods/${mod_id}",
+    "sources": "https://github.com/svenhjol/${mod_id}"
+  }
+}
