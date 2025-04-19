@@ -1,5 +1,6 @@
 package svenhjol.charmony.chorus_network.common.features.chorus_network;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,5 +39,12 @@ public class Registers extends Setup<ChorusNetwork> {
         particleType = Registry.register(BuiltInRegistries.PARTICLE_TYPE,
             ChorusNetworkMod.id("node_channel"),
             new ParticleType());
+    }
+
+    @Override
+    public Runnable boot() {
+        return () -> {
+            ServerLifecycleEvents.SERVER_STARTED.register(feature().handlers::serverStarted);
+        };
     }
 }

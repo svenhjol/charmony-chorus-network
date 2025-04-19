@@ -63,14 +63,19 @@ public class ChorusNodeBlock extends BaseEntityBlock {
             return InteractionResult.PASS;
         }
 
-        if (node.channel().isPresent()) {
+        if (node.getChannelColor().isPresent()) {
             // TODO: effect when already has a channel
             return InteractionResult.PASS;
         }
 
         // TODO: this is a prototype
         if (stack.is(Items.GOLD_INGOT)) {
-            node.channel(DyeColor.YELLOW);
+            node.activateChannel(DyeColor.YELLOW);
+            stack.consume(1, player);
+            return InteractionResult.CONSUME;
+        }
+        if (stack.is(Items.COPPER_INGOT)) {
+            node.activateChannel(DyeColor.BROWN);
             stack.consume(1, player);
             return InteractionResult.CONSUME;
         }
@@ -105,7 +110,7 @@ public class ChorusNodeBlock extends BaseEntityBlock {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (level.getBlockEntity(pos) instanceof ChorusNodeBlockEntity node) {
-            var channel = node.channel();
+            var channel = node.getChannelColor();
             if (channel.isEmpty()) return;
 
             var color = new ColorHelper.Color(channel.get());

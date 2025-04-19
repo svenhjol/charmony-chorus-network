@@ -1,6 +1,7 @@
 package svenhjol.charmony.chorus_network.common.features.chorus_network;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.LevelAccessor;
 import svenhjol.charmony.core.base.Setup;
 
@@ -17,5 +18,9 @@ public class Handlers extends Setup<ChorusNetwork> {
     public boolean spawnNode(LevelAccessor level, BlockPos pos) {
         var block = feature().registers.chorusNodeBlock.get();
         return level.setBlock(pos, block.defaultBlockState(), 2);
+    }
+
+    public void serverStarted(MinecraftServer server) {
+        var state = ChannelSavedData.getServerState(server);
     }
 }
