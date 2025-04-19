@@ -32,7 +32,7 @@ public class NodeChannelParticle extends CustomParticle {
                 0.5d - RANDOM.nextDouble(), 0.5d - RANDOM.nextDouble(), 0.5d - RANDOM.nextDouble(), this.sprite);
             particle.setLifetime(30 + RANDOM.nextInt(30));
 
-            var d = RANDOM.nextDouble() * 0.5d;
+            var d = RANDOM.nextDouble() * 0.25d;
 
             var dr = (float)Math.max(0d, r - d);
             var dg = (float)Math.max(0d, g - d);
