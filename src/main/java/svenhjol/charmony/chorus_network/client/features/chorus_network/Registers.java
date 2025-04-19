@@ -8,10 +8,11 @@ public class Registers extends Setup<ChorusNetwork> {
     public Registers(ChorusNetwork feature) {
         super(feature);
 
-        var clientRegistry = ClientRegistry.forFeature(feature);
+        var registry = ClientRegistry.forFeature(feature);
         var common = feature.common.get();
 
-        clientRegistry.blockRenderType(common.registers.chorusNodeBlock, RenderType::cutout);
-        clientRegistry.blockEntityRenderer(common.registers.chorusNodeBlockEntity, () -> ChorusNodeRenderer::new);
+        registry.blockRenderType(common.registers.chorusNodeBlock, RenderType::cutout);
+        registry.blockEntityRenderer(common.registers.chorusNodeBlockEntity, () -> ChorusNodeRenderer::new);
+        registry.particle(feature.common.get().registers.particleType, NodeChannelParticle.Provider::new);
     }
 }

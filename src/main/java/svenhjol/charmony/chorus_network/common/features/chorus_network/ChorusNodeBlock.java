@@ -6,9 +6,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -19,6 +21,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+import svenhjol.charmony.core.helpers.ColorHelper;
 
 import java.util.function.Supplier;
 
@@ -32,6 +35,7 @@ public class ChorusNodeBlock extends BaseEntityBlock {
     protected ChorusNodeBlock(Properties properties) {
         super(properties
             .strength(15.0f, 1200.0f)
+            .lightLevel(state -> 4)
             .noOcclusion()
             .isViewBlocking(Blocks::never));
     }
@@ -51,6 +55,27 @@ public class ChorusNodeBlock extends BaseEntityBlock {
         if (!state.canSurvive(level, pos)) {
             level.destroyBlock(pos, true);
         }
+    }
+
+    @Override
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (!(level.getBlockEntity(pos) instanceof ChorusNodeBlockEntity node)) {
+            return InteractionResult.PASS;
+        }
+
+        if (node.channel().isPresent()) {
+            // TODO: effect when already has a channel
+            return InteractionResult.PASS;
+        }
+
+        // TODO: this is a prototype
+        if (stack.is(Items.GOLD_INGOT)) {
+            node.channel(DyeColor.YELLOW);
+            stack.consume(1, player);
+            return InteractionResult.CONSUME;
+        }
+
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -75,6 +100,27 @@ public class ChorusNodeBlock extends BaseEntityBlock {
                 level.destroyBlock(pos, true, projectile);
             }
         }
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (level.getBlockEntity(pos) instanceof ChorusNodeBlockEntity node) {
+            var channel = node.channel();
+            if (channel.isEmpty()) return;
+
+            var color = new ColorHelper.Color(channel.get());
+            var particle = feature().registers.particleType;
+
+            var x = ((double) pos.getX() + 0.5d);
+            var y = ((double) pos.getY());
+            var z = ((double) pos.getZ() + 0.5d);
+
+            level.addParticle(particle, x, y, z, color.getRed(), color.getGreen(), color.getBlue());
+        }
+    }
+
+    public ChorusNetwork feature() {
+        return ChorusNetwork.feature();
     }
 
     public static class ChorusNodeBlockItem extends BlockItem {
