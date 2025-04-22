@@ -44,12 +44,12 @@ public class ChannelScreen extends AbstractContainerScreen<ChannelMenu> {
         var pose = guiGraphics.pose();
         var bufferSource = guiGraphics.bufferSource;
         var matrix4f = pose.last().pose();
-        var color = new ColorHelper.Color(getMenu().getColor());
+        var color = new ColorHelper.Color(getMenu().getColor().getTextColor() | 0x666666);
 
         VertexConsumer vertexConsumer = bufferSource.getBuffer(renderType);
-        vertexConsumer.addVertex(matrix4f, (float)i, (float)k, 0.0F).setUv(f, h).setColor(color.getRed(), color.getGreen(), color.getBlue(), 1);
-        vertexConsumer.addVertex(matrix4f, (float)i, (float)l, 0.0F).setUv(f, m).setColor(color.getRed(), color.getGreen(), color.getBlue(), 1);
-        vertexConsumer.addVertex(matrix4f, (float)j, (float)l, 0.0F).setUv(g, m).setColor(color.getRed(), color.getGreen(), color.getBlue(), 1);
-        vertexConsumer.addVertex(matrix4f, (float)j, (float)k, 0.0F).setUv(g, h).setColor(color.getRed(), color.getGreen(), color.getBlue(), 1);
+        vertexConsumer.addVertex(matrix4f, (float)i, (float)k, 0.0F).setUv(f, h).setColor(color.getRed(), color.getGreen(), color.getBlue(), 1.0f);
+        vertexConsumer.addVertex(matrix4f, (float)i, (float)l, 0.0F).setUv(f, m).setColor(color.getRed(), color.getGreen(), color.getBlue(), 1.0f);
+        vertexConsumer.addVertex(matrix4f, (float)j, (float)l, 0.0F).setUv(g, m).setColor(color.getRed(), color.getGreen(), color.getBlue(), 1.0f);
+        vertexConsumer.addVertex(matrix4f, (float)j, (float)k, 0.0F).setUv(g, h).setColor(color.getRed(), color.getGreen(), color.getBlue(), 1.0f);
     }
 }
