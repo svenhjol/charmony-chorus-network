@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "charmony-chorus-network:block/chorus_node_seed"
+    }
+  }
+}

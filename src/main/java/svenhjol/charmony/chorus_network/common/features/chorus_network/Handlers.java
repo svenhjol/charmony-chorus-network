@@ -16,7 +16,7 @@ public class Handlers extends Setup<ChorusNetwork> {
     }
 
     public boolean spawnNode(LevelAccessor level, BlockPos pos) {
-        var block = feature().registers.chorusNodeBlock.get();
+        var block = feature().registers.seedBlock.get();
         return level.setBlock(pos, block.defaultBlockState(), 2);
     }
 

@@ -3,7 +3,6 @@ package svenhjol.charmony.chorus_network.common.features.chorus_network;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
@@ -30,16 +29,15 @@ public class ChannelSavedData extends SavedData {
         setDirty();
     }
 
-    public Channel getOrCreate(DyeColor color) {
-        var channel = channels.stream()
-            .filter(c -> c.color().equals(color))
+    public Channel getOrCreate(CoreMaterial material) {
+        return channels.stream()
+            .filter(c -> c.material().equals(material))
             .findFirst()
-            .orElse(Channel.create(color));
-        return channel;
+            .orElse(Channel.create(material));
     }
 
     public void update(Channel channel) {
-        var existing = channels.stream().filter(c -> c.color().equals(channel.color())).findFirst();
+        var existing = channels.stream().filter(c -> c.material().equals(channel.material())).findFirst();
         if (existing.isEmpty()) {
             channels.add(channel);
         }

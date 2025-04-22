@@ -19,7 +19,7 @@ public class ChannelContainer implements Container {
 
         this.channel = ChannelSavedData
             .getServerState(level.getServer())
-            .getOrCreate(chest.getColor());
+            .getOrCreate(chest.getMaterial());
     }
 
     @Override

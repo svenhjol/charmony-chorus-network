@@ -14,10 +14,10 @@ public final class ChorusNetwork extends SidedFeature {
     public final Registers registers;
 
     @Configurable(
-        name = "Chorus node rarity",
+        name = "Chorus node seed rarity",
         description = """
-            Chance of generating a chorus node in a chorus tree. The value is the distance between potential block positions.
-            Lower values increase the chance of a chorus node being generated.""",
+            Chance of generating a chorus node seed in a chorus tree. The value is the distance between potential block positions.
+            Lower values increase the chance of a seed being generated.""",
         requireRestart = false
     )
     private static int rarity = 20;

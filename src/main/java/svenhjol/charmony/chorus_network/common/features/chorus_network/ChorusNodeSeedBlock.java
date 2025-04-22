@@ -29,14 +29,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class ChorusNodeBlock extends BaseEntityBlock {
-    public static final MapCodec<ChorusNodeBlock> CODEC = simpleCodec(ChorusNodeBlock::new);
+public class ChorusNodeSeedBlock extends BaseEntityBlock {
+    public static final MapCodec<ChorusNodeSeedBlock> CODEC = simpleCodec(ChorusNodeSeedBlock::new);
 
-    public ChorusNodeBlock(ResourceKey<Block> key) {
+    public ChorusNodeSeedBlock(ResourceKey<Block> key) {
         this(BlockBehaviour.Properties.of().setId(key));
     }
 
-    protected ChorusNodeBlock(Properties properties) {
+    protected ChorusNodeSeedBlock(Properties properties) {
         super(properties
             .mapColor(MapColor.COLOR_PURPLE)
             .strength(15.0f, 1200.0f)
@@ -52,7 +52,7 @@ public class ChorusNodeBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ChorusNodeBlockEntity(pos, state);
+        return new ChorusNodeSeedBlockEntity(pos, state);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class ChorusNodeBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (!(level.getBlockEntity(pos) instanceof ChorusNodeBlockEntity node)) {
+        if (!(level.getBlockEntity(pos) instanceof ChorusNodeSeedBlockEntity node)) {
             return InteractionResult.PASS;
         }
 
@@ -110,7 +110,7 @@ public class ChorusNodeBlock extends BaseEntityBlock {
     }
 
     public static class ChorusNodeBlockItem extends BlockItem {
-        public ChorusNodeBlockItem(ResourceKey<Item> key, Supplier<ChorusNodeBlock> block) {
+        public ChorusNodeBlockItem(ResourceKey<Item> key, Supplier<ChorusNodeSeedBlock> block) {
             super(block.get(), new Properties().setId(key));
         }
     }

@@ -8,9 +8,9 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
-import svenhjol.charmony.chorus_network.common.features.chorus_network.ChorusNodeBlockEntity;
+import svenhjol.charmony.chorus_network.common.features.chorus_network.ChorusNodeSeedBlockEntity;
 
-public class ChorusNodeRenderer<T extends ChorusNodeBlockEntity> implements BlockEntityRenderer<T> {
+public class ChorusNodeRenderer<T extends ChorusNodeSeedBlockEntity> implements BlockEntityRenderer<T> {
     public ChorusNodeRenderer(BlockEntityRendererProvider.Context context) {}
 
     /**

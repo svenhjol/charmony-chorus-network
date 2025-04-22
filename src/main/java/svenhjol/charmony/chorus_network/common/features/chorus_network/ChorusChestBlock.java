@@ -14,7 +14,6 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -45,7 +44,7 @@ import java.util.function.Supplier;
 
 public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity> implements SimpleWaterloggedBlock {
     public static final MapCodec<ChorusChestBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-        DyeColor.CODEC.fieldOf("color").forGetter(ChorusChestBlock::getColor),
+        CoreMaterial.CODEC.fieldOf("material").forGetter(ChorusChestBlock::getMaterial),
         propertiesCodec()
     ).apply(instance, ChorusChestBlock::new));
 
@@ -54,27 +53,27 @@ public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity>
 
     private static final VoxelShape SHAPE = Block.column(14.0, 0.0, 14.0);
 
-    private final DyeColor color;
+    private final CoreMaterial material;
 
-    public ChorusChestBlock(ResourceKey<Block> key, DyeColor color) {
-        this(color, Properties.of()
+    public ChorusChestBlock(ResourceKey<Block> key, CoreMaterial material) {
+        this(material, Properties.of()
             .mapColor(MapColor.COLOR_PURPLE)
             .strength(2.5f, 600.0f)
             .lightLevel(state -> 0)
             .setId(key));
     }
 
-    public ChorusChestBlock(DyeColor color, Properties properties) {
-        super(properties, () -> ChorusNetwork.feature().registers.chorusChestBlockEntity.get());
+    public ChorusChestBlock(CoreMaterial material, Properties properties) {
+        super(properties, () -> ChorusNetwork.feature().registers.chestBlockEntity.get());
         registerDefaultState(stateDefinition.any()
             .setValue(FACING, Direction.NORTH)
             .setValue(WATERLOGGED, false));
 
-        this.color = color;
+        this.material = material;
     }
 
-    public DyeColor getColor() {
-        return this.color;
+    public CoreMaterial getMaterial() {
+        return this.material;
     }
 
     @Override
@@ -91,7 +90,7 @@ public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity>
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
         return level.isClientSide ? createTickerHelper(
             blockEntityType,
-            ChorusNetwork.feature().registers.chorusChestBlockEntity.get(),
+            ChorusNetwork.feature().registers.chestBlockEntity.get(),
             ChorusChestBlockEntity::lidAnimateTick) : null;
     }
 
@@ -157,11 +156,11 @@ public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity>
     @Override
     protected @Nullable MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
         if (level instanceof ServerLevel serverLevel && level.getBlockEntity(pos) instanceof ChorusChestBlockEntity chest) {
-            var title = Component.translatable("block.charmony-chorus-network." + color.getSerializedName() + "_chorus_chest");
+            var title = Component.translatable("block.charmony-chorus-network." + material.getSerializedName() + "_chorus_chest");
             var container = new ChannelContainer(serverLevel, chest);
 
             var data = new SimpleContainerData(1);
-            data.set(0, color.getId());
+            data.set(0, material.getId());
 
             return new SimpleMenuProvider((id, inv, p) -> new ChannelMenu(id, inv, container, data), title);
         }
@@ -186,7 +185,7 @@ public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity>
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         var particle = feature().registers.particleType;
-        var helper = new ColorHelper.Color(color);
+        var helper = new ColorHelper.Color(material.getColor());
 
         if (random.nextDouble() < 0.1d) {
             var x = ((double) pos.getX() + 0.5d);

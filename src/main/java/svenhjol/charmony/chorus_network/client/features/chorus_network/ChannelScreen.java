@@ -20,6 +20,7 @@ public class ChannelScreen extends AbstractContainerScreen<ChannelMenu> {
         this.imageWidth = 248;
         this.imageHeight = 240;
         this.inventoryLabelY = this.imageHeight - 94;
+        this.inventoryLabelX = 44;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class ChannelScreen extends AbstractContainerScreen<ChannelMenu> {
     }
 
     protected DyeColor getChannelColor() {
-        return getMenu().getColor();
+        return getMenu().getMaterial().getColor();
     }
 
     protected void blit2(GuiGraphics guiGraphics, int x, int y, float f, float g, int k, int l) {

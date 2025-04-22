@@ -7,7 +7,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestLidController;
@@ -16,10 +15,10 @@ import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class ChorusChestBlockEntity extends BlockEntity implements LidBlockEntity {
-    public static final String COLOR_TAG = "color";
+    public static final String MATERIAL_TAG = "material";
 
     private final ChestLidController chestLidController = new ChestLidController();
-    private DyeColor color;
+    private CoreMaterial material;
 
     private final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         @Override
@@ -69,22 +68,22 @@ public class ChorusChestBlockEntity extends BlockEntity implements LidBlockEntit
     };
 
     public ChorusChestBlockEntity(BlockPos pos, BlockState state) {
-        super(ChorusNetwork.feature().registers.chorusChestBlockEntity.get(), pos, state);
+        super(ChorusNetwork.feature().registers.chestBlockEntity.get(), pos, state);
         var block = (ChorusChestBlock)state.getBlock();
-        this.color = block.getColor();
+        this.material = block.getMaterial();
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.saveAdditional(tag, provider);
-        tag.putInt(COLOR_TAG, color.getId());
+        tag.putInt(MATERIAL_TAG, material.getId());
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
-        var color = tag.getIntOr(COLOR_TAG, 0);
-        this.color = DyeColor.byId(color);
+        var material = tag.getIntOr(MATERIAL_TAG, 0);
+        this.material = CoreMaterial.byId(material);
     }
 
     /**
@@ -131,7 +130,7 @@ public class ChorusChestBlockEntity extends BlockEntity implements LidBlockEntit
         return Container.stillValidBlockEntity(this, player);
     }
 
-    public DyeColor getColor() {
-        return color;
+    public CoreMaterial getMaterial() {
+        return material;
     }
 }

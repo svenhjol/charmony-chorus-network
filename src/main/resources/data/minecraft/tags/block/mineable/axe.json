@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "charmony-chorus-network:chorus_node"
+    "charmony-chorus-network:chorus_node_seed"
   ]
 }

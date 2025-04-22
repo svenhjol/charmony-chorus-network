@@ -28,11 +28,11 @@
               }
             }
           ],
-          "name": "charmony-chorus-network:chorus_node"
+          "name": "charmony-chorus-network:chorus_node_seed"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "charmony-chorus-network:blocks/chorus_node"
+  "random_sequence": "charmony-chorus-network:blocks/chorus_node_seed"
 }

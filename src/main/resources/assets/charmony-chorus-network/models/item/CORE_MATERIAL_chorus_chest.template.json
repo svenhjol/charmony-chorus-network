@@ -5,5 +5,5 @@
       "particle": "minecraft:block/chorus_plant"
     }
   },
-  "variants": "color"
+  "variants": "core_material"
 }

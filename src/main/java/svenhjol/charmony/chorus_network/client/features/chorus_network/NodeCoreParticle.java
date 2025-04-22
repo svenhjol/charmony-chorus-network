@@ -8,8 +8,8 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 import svenhjol.charmony.core.client.CustomParticle;
 
-public class ActivateNodeParticle extends CustomParticle {
-    public ActivateNodeParticle(ClientLevel level, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteProvider) {
+public class NodeCoreParticle extends CustomParticle {
+    public NodeCoreParticle(ClientLevel level, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteProvider) {
         super(level, x, y, z, vx, vy, vz, spriteProvider);
         this.quadSize *= 0.5f;
     }
@@ -28,7 +28,7 @@ public class ActivateNodeParticle extends CustomParticle {
         }
 
         public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double r, double g, double b) {
-            var particle = new ActivateNodeParticle(level, x, y, z,
+            var particle = new NodeCoreParticle(level, x, y, z,
                 0.5d - RANDOM.nextDouble(), 0.5d - RANDOM.nextDouble(), 0.5d - RANDOM.nextDouble(), this.sprite);
             particle.setLifetime(20 + RANDOM.nextInt(15));
 
