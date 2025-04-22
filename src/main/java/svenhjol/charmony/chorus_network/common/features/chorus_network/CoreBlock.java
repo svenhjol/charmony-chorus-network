@@ -45,7 +45,7 @@ public class CoreBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
     public CoreBlock(ResourceKey<Block> key, CoreMaterial material) {
         this(material, Properties.of()
             .mapColor(material.getColor())
-            .strength(20.0f, 1200.0f)
+            .strength(15.0f, 1200.0f)
             .noOcclusion()
             .isViewBlocking(Blocks::never)
             .setId(key));
