@@ -58,6 +58,6 @@ public class SeedRenderer<T extends SeedBlockEntity> implements BlockEntityRende
 
     @Override
     public int getViewDistance() {
-        return 68;
+        return 80;
     }
 }
