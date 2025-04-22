@@ -11,9 +11,9 @@ public class ChannelContainer implements Container {
     private final Level level;
     private final Channel channel;
 
-    private ChorusChestBlockEntity chest;
+    private ChestBlockEntity chest;
 
-    public ChannelContainer(ServerLevel level, ChorusChestBlockEntity chest) {
+    public ChannelContainer(ServerLevel level, ChestBlockEntity chest) {
         this.level = level;
         this.chest = chest;
 
@@ -96,7 +96,7 @@ public class ChannelContainer implements Container {
         chest = null;
     }
 
-    public boolean isSameChest(ChorusChestBlockEntity chest) {
+    public boolean isSameChest(ChestBlockEntity chest) {
         return this.chest == chest;
     }
 }

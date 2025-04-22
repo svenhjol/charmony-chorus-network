@@ -10,11 +10,14 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -28,35 +31,40 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class ChorusNodeCoreBlock extends Block implements SimpleWaterloggedBlock {
-    public static final MapCodec<ChorusNodeCoreBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-        CoreMaterial.CODEC.fieldOf("material").forGetter(ChorusNodeCoreBlock::getMaterial),
+public class CoreBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
+    public static final MapCodec<CoreBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        CoreMaterial.CODEC.fieldOf("material").forGetter(CoreBlock::getMaterial),
         propertiesCodec()
-    ).apply(instance, ChorusNodeCoreBlock::new));
+    ).apply(instance, CoreBlock::new));
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final VoxelShape SHAPE = Block.column(8.0, 0.0, 8.0);
 
     private final CoreMaterial material;
 
-    public ChorusNodeCoreBlock(ResourceKey<Block> key, CoreMaterial material) {
+    public CoreBlock(ResourceKey<Block> key, CoreMaterial material) {
         this(material, Properties.of()
             .mapColor(material.getColor())
-            .strength(30.0f, 1200.0f)
+            .strength(20.0f, 1200.0f)
             .noOcclusion()
             .isViewBlocking(Blocks::never)
             .setId(key));
     }
 
-    public ChorusNodeCoreBlock(CoreMaterial material, Properties properties) {
+    public CoreBlock(CoreMaterial material, Properties properties) {
         super(properties);
         registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
         this.material = material;
     }
 
     @Override
-    protected MapCodec<? extends Block> codec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new CoreBlockEntity(pos, state);
     }
 
     public CoreMaterial getMaterial() {
@@ -107,8 +115,17 @@ public class ChorusNodeCoreBlock extends Block implements SimpleWaterloggedBlock
         return false;
     }
 
-    public static class ChorusNodeCoreBlockItem extends BlockItem {
-        public ChorusNodeCoreBlockItem(ResourceKey<Item> key, Supplier<ChorusNodeCoreBlock> block) {
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        feature().handlers.addMaterialParticle(level, pos, material, random, 0.25d, 0.5d);
+    }
+
+    private ChorusNetwork feature() {
+        return ChorusNetwork.feature();
+    }
+
+    public static class CoreBlockItem extends BlockItem {
+        public CoreBlockItem(ResourceKey<Item> key, Supplier<CoreBlock> block) {
             super(block.get(), new Properties().setId(key));
         }
     }

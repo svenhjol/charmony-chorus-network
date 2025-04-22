@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -38,15 +37,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import svenhjol.charmony.core.helpers.ColorHelper;
 
 import java.util.function.Supplier;
 
-public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity> implements SimpleWaterloggedBlock {
-    public static final MapCodec<ChorusChestBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-        CoreMaterial.CODEC.fieldOf("material").forGetter(ChorusChestBlock::getMaterial),
+public class ChestBlock extends AbstractChestBlock<ChestBlockEntity> implements SimpleWaterloggedBlock {
+    public static final MapCodec<ChestBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        CoreMaterial.CODEC.fieldOf("material").forGetter(ChestBlock::getMaterial),
         propertiesCodec()
-    ).apply(instance, ChorusChestBlock::new));
+    ).apply(instance, ChestBlock::new));
 
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -55,7 +53,7 @@ public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity>
 
     private final CoreMaterial material;
 
-    public ChorusChestBlock(ResourceKey<Block> key, CoreMaterial material) {
+    public ChestBlock(ResourceKey<Block> key, CoreMaterial material) {
         this(material, Properties.of()
             .mapColor(MapColor.COLOR_PURPLE)
             .strength(2.5f, 600.0f)
@@ -63,7 +61,7 @@ public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity>
             .setId(key));
     }
 
-    public ChorusChestBlock(CoreMaterial material, Properties properties) {
+    public ChestBlock(CoreMaterial material, Properties properties) {
         super(properties, () -> ChorusNetwork.feature().registers.chestBlockEntity.get());
         registerDefaultState(stateDefinition.any()
             .setValue(FACING, Direction.NORTH)
@@ -77,7 +75,7 @@ public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity>
     }
 
     @Override
-    protected MapCodec<? extends AbstractChestBlock<ChorusChestBlockEntity>> codec() {
+    protected MapCodec<? extends AbstractChestBlock<ChestBlockEntity>> codec() {
         return CODEC;
     }
 
@@ -91,13 +89,13 @@ public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity>
         return level.isClientSide ? createTickerHelper(
             blockEntityType,
             ChorusNetwork.feature().registers.chestBlockEntity.get(),
-            ChorusChestBlockEntity::lidAnimateTick) : null;
+            ChestBlockEntity::lidAnimateTick) : null;
     }
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         var blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof ChorusChestBlockEntity chest) {
+        if (blockEntity instanceof ChestBlockEntity chest) {
             chest.recheckOpen();
         }
     }
@@ -134,7 +132,7 @@ public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity>
     }
 
     @Override
-    public DoubleBlockCombiner.NeighborCombineResult<? extends ChestBlockEntity> combine(BlockState state, Level level, BlockPos pos, boolean bl) {
+    public DoubleBlockCombiner.NeighborCombineResult<? extends net.minecraft.world.level.block.entity.ChestBlockEntity> combine(BlockState state, Level level, BlockPos pos, boolean bl) {
         return DoubleBlockCombiner.Combiner::acceptNone;
     }
 
@@ -150,12 +148,12 @@ public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity>
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ChorusChestBlockEntity(pos, state);
+        return new ChestBlockEntity(pos, state);
     }
 
     @Override
     protected @Nullable MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
-        if (level instanceof ServerLevel serverLevel && level.getBlockEntity(pos) instanceof ChorusChestBlockEntity chest) {
+        if (level instanceof ServerLevel serverLevel && level.getBlockEntity(pos) instanceof ChestBlockEntity chest) {
             var title = Component.translatable("block.charmony-chorus-network." + material.getSerializedName() + "_chorus_chest");
             var container = new ChannelContainer(serverLevel, chest);
 
@@ -184,24 +182,15 @@ public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity>
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        var particle = feature().registers.particleType;
-        var helper = new ColorHelper.Color(material.getColor());
-
-        if (random.nextDouble() < 0.1d) {
-            var x = ((double) pos.getX() + 0.5d);
-            var y = ((double) pos.getY() + 0.5d);
-            var z = ((double) pos.getZ() + 0.5d);
-
-            level.addParticle(particle, x, y, z, helper.getRed(), helper.getGreen(), helper.getBlue());
-        }
+        feature().handlers.addMaterialParticle(level, pos, material, random, 0.5d, 0.12d);
     }
 
     private ChorusNetwork feature() {
         return ChorusNetwork.feature();
     }
 
-    public static class ChorusChestBlockItem extends BlockItem {
-        public ChorusChestBlockItem(ResourceKey<Item> key, Supplier<ChorusChestBlock> block) {
+    public static class ChestBlockItem extends BlockItem {
+        public ChestBlockItem(ResourceKey<Item> key, Supplier<ChestBlock> block) {
             super(block.get(), new Properties().setId(key));
         }
     }

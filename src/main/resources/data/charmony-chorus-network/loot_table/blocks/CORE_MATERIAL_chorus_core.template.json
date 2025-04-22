@@ -1,0 +1,24 @@
+{
+  "template": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "bonus_rolls": 0.0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "charmony-chorus-network:CORE_MATERIAL_chorus_core"
+          }
+        ],
+        "rolls": 1.0
+      }
+    ],
+    "random_sequence": "charmony-chorus-network:blocks/CORE_MATERIAL_chorus_core"
+  },
+  "variants": "core_material"
+}

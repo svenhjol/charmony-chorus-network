@@ -22,8 +22,8 @@ public class ChorusFlowerBlockMixin {
         )
     )
     private static boolean hookGrowTreeRecursive(LevelAccessor level, BlockPos pos, BlockState state, int i) {
-        if (feature().handlers.canSpawnNode(level, pos)) {
-            return feature().handlers.spawnNode(level, pos);
+        if (feature().handlers.canSpawnSeed(level, pos)) {
+            return feature().handlers.spawnSeed(level, pos);
         }
 
         // Fallback to default.

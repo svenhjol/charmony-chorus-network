@@ -3,7 +3,6 @@ package svenhjol.charmony.chorus_network.common.features.chorus_network;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +13,7 @@ import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class ChorusChestBlockEntity extends BlockEntity implements LidBlockEntity {
+public class ChestBlockEntity extends BlockEntity implements LidBlockEntity {
     public static final String MATERIAL_TAG = "material";
 
     private final ChestLidController chestLidController = new ChestLidController();
@@ -29,7 +28,7 @@ public class ChorusChestBlockEntity extends BlockEntity implements LidBlockEntit
                 blockPos.getX() + 0.5,
                 blockPos.getY() + 0.5,
                 blockPos.getZ() + 0.5,
-                SoundEvents.ENDER_CHEST_OPEN,
+                ChorusNetwork.feature().registers.chestOpenSound.get(),
                 SoundSource.BLOCKS,
                 0.5F,
                 level.random.nextFloat() * 0.1F + 0.9F
@@ -44,7 +43,7 @@ public class ChorusChestBlockEntity extends BlockEntity implements LidBlockEntit
                 blockPos.getX() + 0.5,
                 blockPos.getY() + 0.5,
                 blockPos.getZ() + 0.5,
-                SoundEvents.ENDER_CHEST_CLOSE,
+                ChorusNetwork.feature().registers.chestCloseSound.get(),
                 SoundSource.BLOCKS,
                 0.5F,
                 level.random.nextFloat() * 0.1F + 0.9F
@@ -53,23 +52,23 @@ public class ChorusChestBlockEntity extends BlockEntity implements LidBlockEntit
 
         @Override
         protected void openerCountChanged(Level level, BlockPos pos, BlockState state, int i, int j) {
-            var block = (ChorusChestBlock)state.getBlock();
-            level.blockEvent(ChorusChestBlockEntity.this.worldPosition, block, 1, j);
+            var block = (ChestBlock)state.getBlock();
+            level.blockEvent(ChestBlockEntity.this.worldPosition, block, 1, j);
         }
 
         @Override
         protected boolean isOwnContainer(Player player) {
             if (player.containerMenu instanceof ChannelMenu menu
                 && menu.getContainer() instanceof ChannelContainer container) {
-                return container.isSameChest(ChorusChestBlockEntity.this);
+                return container.isSameChest(ChestBlockEntity.this);
             }
             return false;
         }
     };
 
-    public ChorusChestBlockEntity(BlockPos pos, BlockState state) {
+    public ChestBlockEntity(BlockPos pos, BlockState state) {
         super(ChorusNetwork.feature().registers.chestBlockEntity.get(), pos, state);
-        var block = (ChorusChestBlock)state.getBlock();
+        var block = (ChestBlock)state.getBlock();
         this.material = block.getMaterial();
     }
 
@@ -122,7 +121,7 @@ public class ChorusChestBlockEntity extends BlockEntity implements LidBlockEntit
         }
     }
 
-    public static void lidAnimateTick(Level level, BlockPos pos, BlockState state, ChorusChestBlockEntity chest) {
+    public static void lidAnimateTick(Level level, BlockPos pos, BlockState state, ChestBlockEntity chest) {
         chest.chestLidController.tickLid();
     }
 

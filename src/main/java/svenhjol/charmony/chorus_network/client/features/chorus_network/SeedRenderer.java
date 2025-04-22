@@ -8,16 +8,16 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
-import svenhjol.charmony.chorus_network.common.features.chorus_network.ChorusNodeSeedBlockEntity;
+import svenhjol.charmony.chorus_network.common.features.chorus_network.SeedBlockEntity;
 
-public class ChorusNodeRenderer<T extends ChorusNodeSeedBlockEntity> implements BlockEntityRenderer<T> {
-    public ChorusNodeRenderer(BlockEntityRendererProvider.Context context) {}
+public class SeedRenderer<T extends SeedBlockEntity> implements BlockEntityRenderer<T> {
+    public SeedRenderer(BlockEntityRendererProvider.Context context) {}
 
     /**
      * @see net.minecraft.client.renderer.blockentity.TheEndPortalRenderer
      */
     @Override
-    public void render(T node, float f, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, Vec3 vec3) {
+    public void render(T seed, float f, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, Vec3 vec3) {
         var pose = poseStack.last().pose();
         var vertexConsumer = multiBufferSource.getBuffer(RenderType.endGateway());
 
@@ -25,6 +25,21 @@ public class ChorusNodeRenderer<T extends ChorusNodeSeedBlockEntity> implements 
         var sideMaxMargin = 0.99f;
         var vertMinMargin = 0.01f;
         var vertMaxMargin = 0.99f;
+
+        if (seed.isCollapsing()) {
+            if (seed.collapseAnimation < 0.5f) {
+                seed.collapseAnimation = seed.collapseAnimation * 1.04f;
+
+                sideMinMargin += seed.collapseAnimation;
+                sideMaxMargin -= seed.collapseAnimation;
+                vertMinMargin += seed.collapseAnimation;
+                vertMaxMargin -= seed.collapseAnimation;
+            } else {
+                return;
+            }
+        } else {
+            seed.collapseAnimation = 0.001f;
+        }
 
         renderFace(pose, vertexConsumer, sideMinMargin, sideMaxMargin, vertMinMargin, vertMaxMargin, sideMaxMargin, sideMaxMargin, sideMaxMargin, sideMaxMargin); // South
         renderFace(pose, vertexConsumer, sideMinMargin, sideMaxMargin, vertMaxMargin, vertMinMargin, sideMinMargin, sideMinMargin, sideMinMargin, sideMinMargin); // North

@@ -13,7 +13,8 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -21,28 +22,38 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class ChorusNodeSeedBlock extends BaseEntityBlock {
-    public static final MapCodec<ChorusNodeSeedBlock> CODEC = simpleCodec(ChorusNodeSeedBlock::new);
+public class SeedBlock extends BaseEntityBlock {
+    public static final BooleanProperty COLLAPSING = BooleanProperty.create("collapsing");
+    public static final MapCodec<SeedBlock> CODEC = simpleCodec(SeedBlock::new);
 
-    public ChorusNodeSeedBlock(ResourceKey<Block> key) {
+    public SeedBlock(ResourceKey<Block> key) {
         this(BlockBehaviour.Properties.of().setId(key));
     }
 
-    protected ChorusNodeSeedBlock(Properties properties) {
+    protected SeedBlock(Properties properties) {
         super(properties
             .mapColor(MapColor.COLOR_PURPLE)
             .strength(15.0f, 1200.0f)
             .lightLevel(state -> 4)
             .noOcclusion()
             .isViewBlocking(Blocks::never));
+
+        registerDefaultState(this.stateDefinition.any().setValue(COLLAPSING, false));
     }
 
     @Override
@@ -51,8 +62,27 @@ public class ChorusNodeSeedBlock extends BaseEntityBlock {
     }
 
     @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(COLLAPSING);
+    }
+
+    @Override
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
+        return defaultBlockState().setValue(COLLAPSING, false);
+    }
+
+    @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ChorusNodeSeedBlockEntity(pos, state);
+        return new SeedBlockEntity(pos, state);
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
+        return createSeedTicker(level, blockEntityType, feature().registers.seedBlockEntity.get());
+    }
+
+    private @Nullable <T extends BlockEntity> BlockEntityTicker<T> createSeedTicker(Level level, BlockEntityType<T> blockEntityType, BlockEntityType<SeedBlockEntity> seed) {
+        return createTickerHelper(blockEntityType, seed, SeedBlockEntity::tick);
     }
 
     @Override
@@ -64,21 +94,25 @@ public class ChorusNodeSeedBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (!(level.getBlockEntity(pos) instanceof ChorusNodeSeedBlockEntity node)) {
-            return InteractionResult.PASS;
-        }
-
-        // TODO: make a core item.
-        if (stack.is(Items.GOLD_INGOT)) {
-            stack.consume(1, player);
-            return InteractionResult.CONSUME;
-        }
-        if (stack.is(Items.COPPER_INGOT)) {
-            stack.consume(1, player);
-            return InteractionResult.CONSUME;
+        if (level.getBlockEntity(pos) instanceof SeedBlockEntity seed) {
+            if (seed.isCollapsing()) {
+                return InteractionResult.PASS;
+            } else {
+                var material = CoreMaterial.byItem(stack);
+                if (material.isPresent()) {
+                    stack.consume(1, player);
+                    seed.startCollapse(material.get());
+                    return InteractionResult.CONSUME;
+                }
+            }
         }
 
         return InteractionResult.PASS;
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext collisionContext) {
+       return state.getValue(COLLAPSING) ? Shapes.empty() : Shapes.block();
     }
 
     @Override
@@ -105,12 +139,12 @@ public class ChorusNodeSeedBlock extends BaseEntityBlock {
         }
     }
 
-    public ChorusNetwork feature() {
+    private ChorusNetwork feature() {
         return ChorusNetwork.feature();
     }
 
-    public static class ChorusNodeBlockItem extends BlockItem {
-        public ChorusNodeBlockItem(ResourceKey<Item> key, Supplier<ChorusNodeSeedBlock> block) {
+    public static class SeedBlockItem extends BlockItem {
+        public SeedBlockItem(ResourceKey<Item> key, Supplier<SeedBlock> block) {
             super(block.get(), new Properties().setId(key));
         }
     }

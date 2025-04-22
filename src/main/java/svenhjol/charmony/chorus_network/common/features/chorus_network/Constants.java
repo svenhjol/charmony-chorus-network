@@ -5,5 +5,5 @@ public final class Constants {
 
     public static int COLUMNS = 13;
 
-    public static int SLOTS = 91;
+    public static int SLOTS = ROWS * COLUMNS;
 }

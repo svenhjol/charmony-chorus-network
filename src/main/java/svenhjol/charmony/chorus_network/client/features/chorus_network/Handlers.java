@@ -8,7 +8,7 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import svenhjol.charmony.chorus_network.ChorusNetworkMod;
-import svenhjol.charmony.chorus_network.common.features.chorus_network.ChorusChestBlockEntity;
+import svenhjol.charmony.chorus_network.common.features.chorus_network.ChestBlockEntity;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.CoreMaterial;
 import svenhjol.charmony.core.base.Setup;
 
@@ -47,7 +47,7 @@ public class Handlers extends Setup<ChorusNetwork> {
     }
 
     public Optional<Material> useCustomMaterial(BlockEntity blockEntity) {
-        if (blockEntity instanceof ChorusChestBlockEntity chest) {
+        if (blockEntity instanceof ChestBlockEntity chest) {
             var material = chest.getMaterial();
             if (CHEST_MATERIALS.containsKey(material)) {
                 return Optional.of(CHEST_MATERIALS.get(material));

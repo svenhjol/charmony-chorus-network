@@ -4,12 +4,18 @@ import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import java.util.Locale;
+import java.util.Optional;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
+/**
+ * In future we may want custom colors here.
+ * For now just register the closest DyeColor.
+ */
 public enum CoreMaterial implements StringRepresentable {
     QUARTZ(0, "quartz", () -> Items.QUARTZ, DyeColor.WHITE),
     IRON(1, "iron", () -> Items.IRON_INGOT, DyeColor.GRAY),
@@ -40,6 +46,24 @@ public enum CoreMaterial implements StringRepresentable {
 
     public static CoreMaterial byId(int id) {
         return BY_ID.apply(id);
+    }
+
+    public static Optional<CoreMaterial> byName(String name) {
+        for (var material : values()) {
+            if (material.name.equals(name)) {
+                return Optional.of(material);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public static Optional<CoreMaterial> byItem(ItemStack item) {
+        for (var material : values()) {
+            if (material.item.get().equals(item.getItem())) {
+                return Optional.of(material);
+            }
+        }
+        return Optional.empty();
     }
 
     public int getId() {

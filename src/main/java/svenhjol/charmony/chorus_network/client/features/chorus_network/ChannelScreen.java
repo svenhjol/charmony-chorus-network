@@ -47,10 +47,16 @@ public class ChannelScreen extends AbstractContainerScreen<ChannelMenu> {
         return getMenu().getMaterial().getColor();
     }
 
+    /**
+     * TODO: move to Charmony.
+     */
     protected void blit2(GuiGraphics guiGraphics, int x, int y, float f, float g, int k, int l) {
         blit3(guiGraphics, x, x + k, y, y + l, (f + 0.0F) / 256, (f + k) / 256, (g + 0.0F) / 256, (g + l) / 256);
     }
 
+    /**
+     * TODO: move to Charmony.
+     */
     protected void blit3(GuiGraphics guiGraphics, int i, int j, int k, int l, float f, float g, float h, float m) {
         RenderType renderType = RenderType.guiTextured(BACKGROUND);
 
@@ -66,6 +72,9 @@ public class ChannelScreen extends AbstractContainerScreen<ChannelMenu> {
         vertexConsumer.addVertex(matrix4f, (float)j, (float)k, 0.0F).setUv(g, h).setColor(color.getRed(), color.getGreen(), color.getBlue(), 1.0f);
     }
 
+    /**
+     * TODO: move to Charmony.
+     */
     protected ColorHelper.Color tintBackgroundColor(DyeColor color) {
         var col = switch (color) {
             case BLACK -> 0x505050;
@@ -88,6 +97,9 @@ public class ChannelScreen extends AbstractContainerScreen<ChannelMenu> {
         return new ColorHelper.Color(col);
     }
 
+    /**
+     * TODO: move to Charmony.
+     */
     protected int tintTextColor(DyeColor color) {
         return switch(color) {
             case BLACK -> 0xd0d0d0;
