@@ -5,6 +5,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
@@ -59,7 +60,11 @@ public class ChorusChestBlockEntity extends BlockEntity implements LidBlockEntit
 
         @Override
         protected boolean isOwnContainer(Player player) {
-            return false; // TODO - look at normal Chest block entity.
+            if (player.containerMenu instanceof ChannelMenu menu
+                && menu.getContainer() instanceof ChannelContainer container) {
+                return container.isSameChest(ChorusChestBlockEntity.this);
+            }
+            return false;
         }
     };
 
@@ -120,6 +125,10 @@ public class ChorusChestBlockEntity extends BlockEntity implements LidBlockEntit
 
     public static void lidAnimateTick(Level level, BlockPos pos, BlockState state, ChorusChestBlockEntity chest) {
         chest.chestLidController.tickLid();
+    }
+
+    public boolean stillValid(Player player) {
+        return Container.stillValidBlockEntity(this, player);
     }
 
     public DyeColor getColor() {

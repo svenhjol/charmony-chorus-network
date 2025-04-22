@@ -8,12 +8,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class ChannelContainer implements Container {
-    private final Channel channel;
     private final Level level;
+    private final Channel channel;
 
-    public ChannelContainer(Level level, Channel channel) {
+    private ChorusChestBlockEntity chest;
+
+    public ChannelContainer(ServerLevel level, ChorusChestBlockEntity chest) {
         this.level = level;
-        this.channel = channel;
+        this.chest = chest;
+
+        this.channel = ChannelSavedData
+            .getServerState(level.getServer())
+            .getOrCreate(chest.getColor());
     }
 
     @Override
@@ -67,11 +73,30 @@ public class ChannelContainer implements Container {
 
     @Override
     public boolean stillValid(Player player) {
-        return true;
+        return chest != null && chest.stillValid(player);
     }
 
     @Override
     public void clearContent() {
         channel.items().clear();
+    }
+
+    @Override
+    public void startOpen(Player player) {
+        if (chest != null) {
+            chest.startOpen(player);
+        }
+    }
+
+    @Override
+    public void stopOpen(Player player) {
+        if (chest != null) {
+            chest.stopOpen(player);
+        }
+        chest = null;
+    }
+
+    public boolean isSameChest(ChorusChestBlockEntity chest) {
+        return this.chest == chest;
     }
 }

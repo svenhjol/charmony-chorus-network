@@ -23,7 +23,7 @@ public class ChannelMenu extends ContainerMenu {
         super(ChorusNetwork.feature().registers.menu.get(), syncId, inventory, container);
         this.container = container;
         this.data = data;
-        container.stopOpen(inventory.player);
+        container.startOpen(inventory.player);
 
         this.addDataSlots(data);
         this.addChestGrid(8, 18);
@@ -83,5 +83,9 @@ public class ChannelMenu extends ContainerMenu {
     public DyeColor getColor() {
         var id = this.data.get(0);
         return DyeColor.byId(id);
+    }
+
+    public Container getContainer() {
+        return container;
     }
 }

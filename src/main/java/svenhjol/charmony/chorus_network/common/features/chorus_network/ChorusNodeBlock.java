@@ -105,22 +105,6 @@ public class ChorusNodeBlock extends BaseEntityBlock {
         }
     }
 
-    @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-//        if (level.getBlockEntity(pos) instanceof ChorusNodeBlockEntity node) {
-//            if (node.getColor().isEmpty()) return;
-//
-//            var color = new ColorHelper.Color(node.getColor().get());
-//            var particle = feature().registers.particleType;
-//
-//            var x = ((double) pos.getX() + 0.5d);
-//            var y = ((double) pos.getY());
-//            var z = ((double) pos.getZ() + 0.5d);
-//
-//            level.addParticle(particle, x, y, z, color.getRed(), color.getGreen(), color.getBlue());
-//        }
-    }
-
     public ChorusNetwork feature() {
         return ChorusNetwork.feature();
     }

@@ -30,7 +30,7 @@ public class ActivateNodeParticle extends CustomParticle {
         public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double r, double g, double b) {
             var particle = new ActivateNodeParticle(level, x, y, z,
                 0.5d - RANDOM.nextDouble(), 0.5d - RANDOM.nextDouble(), 0.5d - RANDOM.nextDouble(), this.sprite);
-            particle.setLifetime(30 + RANDOM.nextInt(30));
+            particle.setLifetime(20 + RANDOM.nextInt(15));
 
             var d = RANDOM.nextDouble() * 0.25d;
 
@@ -40,7 +40,7 @@ public class ActivateNodeParticle extends CustomParticle {
 
             particle.setColor(dr, dg, db);
             particle.setAlpha(1.0f);
-            particle.friction = 0.86f; // some multiplier for velocity, idk
+            particle.friction = 0.73f; // some multiplier for velocity, idk
             particle.speedUpWhenYMotionIsBlocked = false; // idk
             return particle;
         }

@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.SimpleContainerData;
@@ -38,6 +39,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import svenhjol.charmony.core.helpers.ColorHelper;
 
 import java.util.function.Supplier;
 
@@ -153,26 +155,46 @@ public class ChorusChestBlock extends AbstractChestBlock<ChorusChestBlockEntity>
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.getBlockEntity(pos) instanceof ChorusChestBlockEntity chest) {
-            var abovePos = pos.above();
-            if (level.getBlockState(abovePos).isRedstoneConductor(level, abovePos)) {
-                return InteractionResult.SUCCESS;
-            } else {
-                if (level instanceof ServerLevel serverLevel) {
-                    var channel = ChannelSavedData.getServerState(serverLevel.getServer()).getOrCreate(color);
-                    var data = new SimpleContainerData(1);
-                    data.set(0, color.getId());
+    protected @Nullable MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
+        if (level instanceof ServerLevel serverLevel && level.getBlockEntity(pos) instanceof ChorusChestBlockEntity chest) {
+            var title = Component.translatable("block.charmony-chorus-network." + color.getSerializedName() + "_chorus_chest");
+            var container = new ChannelContainer(serverLevel, chest);
 
-                    var provider = new SimpleMenuProvider((id, inv, p) ->
-                        new ChannelMenu(id, inv, new ChannelContainer(level, channel), data),
-                        Component.literal("FIXME"));
+            var data = new SimpleContainerData(1);
+            data.set(0, color.getId());
 
-                    player.openMenu(provider);
-                }
-            }
+            return new SimpleMenuProvider((id, inv, p) -> new ChannelMenu(id, inv, container, data), title);
         }
-        return super.useWithoutItem(state, level, pos, player, hitResult);
+        return null;
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        var provider = getMenuProvider(state, level, pos);
+        if (provider != null) {
+            player.openMenu(provider);
+        }
+
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState blockState) {
+        return true;
+    }
+
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        var particle = feature().registers.particleType;
+        var helper = new ColorHelper.Color(color);
+
+        if (random.nextDouble() < 0.1d) {
+            var x = ((double) pos.getX() + 0.5d);
+            var y = ((double) pos.getY() + 0.5d);
+            var z = ((double) pos.getZ() + 0.5d);
+
+            level.addParticle(particle, x, y, z, helper.getRed(), helper.getGreen(), helper.getBlue());
+        }
     }
 
     private ChorusNetwork feature() {
