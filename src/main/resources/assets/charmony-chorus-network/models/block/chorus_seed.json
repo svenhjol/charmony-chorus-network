@@ -3,6 +3,7 @@
   "textures": {
     "side": "charmony-chorus-network:block/chorus_seed_side",
     "top": "charmony-chorus-network:block/chorus_seed_top",
+    "inner": "charmony-chorus-network:block/inner",
     "particle": "#side"
   },
   "elements": [
@@ -68,6 +69,19 @@
       "faces": {
         "east": { "uv": [ 0, 0, 16, 16 ], "texture": "#side", "cullface": "east" },
         "west": { "uv": [ 16, 0, 0, 16 ], "texture": "#side", "cullface": "east" }
+      }
+    },
+    {
+      "name": "inner",
+      "from": [1, 1, 1],
+      "to": [15, 15, 15],
+      "faces": {
+        "north": {"texture": "inner"},
+        "east": {"texture": "inner"},
+        "south": {"texture": "inner"},
+        "west": {"texture": "inner"},
+        "up": {"texture": "inner"},
+        "down": {"texture": "inner"}
       }
     }
   ]
