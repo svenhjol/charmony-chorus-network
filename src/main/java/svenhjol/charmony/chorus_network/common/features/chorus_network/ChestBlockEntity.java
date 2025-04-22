@@ -22,7 +22,6 @@ public class ChestBlockEntity extends BlockEntity implements LidBlockEntity {
     private final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         @Override
         protected void onOpen(Level level, BlockPos blockPos, BlockState blockState) {
-            // TODO: this is copypasta from EnderChestBlockEntity. Make unique
             level.playSound(
                 null,
                 blockPos.getX() + 0.5,
@@ -37,7 +36,6 @@ public class ChestBlockEntity extends BlockEntity implements LidBlockEntity {
 
         @Override
         protected void onClose(Level level, BlockPos blockPos, BlockState blockState) {
-            // TODO: this is copypasta from EnderChestBlockEntity. Make unique
             level.playSound(
                 null,
                 blockPos.getX() + 0.5,
