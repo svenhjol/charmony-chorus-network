@@ -12,12 +12,14 @@ public final class ChorusNetwork extends SidedFeature {
     public final Supplier<Common> common;
     public final Handlers handlers;
     public final Registers registers;
+    public final ItemTidyingProviders itemTidyingProviders;
 
     public ChorusNetwork(Mod mod) {
         super(mod);
         common = Common::new;
         handlers = new Handlers(this);
         registers = new Registers(this);
+        itemTidyingProviders = new ItemTidyingProviders(this);
     }
 
     public static ChorusNetwork feature() {
