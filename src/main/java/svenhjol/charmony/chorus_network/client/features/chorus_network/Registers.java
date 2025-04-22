@@ -1,6 +1,7 @@
 package svenhjol.charmony.chorus_network.client.features.chorus_network;
 
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.ChestRenderer;
 import svenhjol.charmony.core.base.Setup;
 import svenhjol.charmony.core.client.ClientRegistry;
 
@@ -13,6 +14,8 @@ public class Registers extends Setup<ChorusNetwork> {
 
         registry.blockRenderType(common.registers.chorusNodeBlock, RenderType::cutout);
         registry.blockEntityRenderer(common.registers.chorusNodeBlockEntity, () -> ChorusNodeRenderer::new);
-        registry.particle(feature.common.get().registers.particleType, NodeChannelParticle.Provider::new);
+        registry.blockEntityRenderer(common.registers.chorusChestBlockEntity, () -> ChestRenderer::new);
+        registry.particle(feature.common.get().registers.particleType, ActivateNodeParticle.Provider::new);
+        registry.menuScreen(common.registers.menu, () -> ChannelScreen::new);
     }
 }

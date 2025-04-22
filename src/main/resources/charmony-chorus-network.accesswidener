@@ -3,3 +3,4 @@ accessible method net/minecraft/client/particle/Particle setAlpha (F)V
 accessible field net/minecraft/client/particle/Particle friction F
 accessible field net/minecraft/client/particle/Particle speedUpWhenYMotionIsBlocked Z
 accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegistration
+accessible field net/minecraft/client/gui/GuiGraphics bufferSource Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource;

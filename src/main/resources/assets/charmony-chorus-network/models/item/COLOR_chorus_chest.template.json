@@ -1,0 +1,9 @@
+{
+  "template": {
+    "parent": "minecraft:item/template_chest",
+    "textures": {
+      "particle": "minecraft:block/chorus_plant"
+    }
+  },
+  "variants": "color"
+}

@@ -20,7 +20,7 @@ public final class ChorusNetwork extends SidedFeature {
             Lower values increase the chance of a chorus node being generated.""",
         requireRestart = false
     )
-    private static int rarity = 24;
+    private static int rarity = 20;
 
     public ChorusNetwork(Mod mod) {
         super(mod);

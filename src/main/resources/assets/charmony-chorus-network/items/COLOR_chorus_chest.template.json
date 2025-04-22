@@ -1,0 +1,13 @@
+{
+  "template": {
+    "model": {
+      "type": "minecraft:special",
+      "base": "charmony-chorus-network:item/COLOR_chorus_chest",
+      "model": {
+        "type": "minecraft:chest",
+        "texture": "charmony-chorus-network:COLOR_chorus"
+      }
+    }
+  },
+  "variants": "color"
+}

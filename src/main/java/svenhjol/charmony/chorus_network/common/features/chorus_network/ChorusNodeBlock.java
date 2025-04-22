@@ -10,7 +10,10 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -18,22 +21,24 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
-import svenhjol.charmony.core.helpers.ColorHelper;
 
 import java.util.function.Supplier;
 
 public class ChorusNodeBlock extends BaseEntityBlock {
     public static final MapCodec<ChorusNodeBlock> CODEC = simpleCodec(ChorusNodeBlock::new);
 
-    public ChorusNodeBlock(ResourceKey<Block> key, Properties properties) {
-        this(properties.setId(key));
+    public ChorusNodeBlock(ResourceKey<Block> key) {
+        this(BlockBehaviour.Properties.of().setId(key));
     }
 
     protected ChorusNodeBlock(Properties properties) {
         super(properties
+            .mapColor(MapColor.COLOR_PURPLE)
             .strength(15.0f, 1200.0f)
             .lightLevel(state -> 4)
             .noOcclusion()
@@ -63,19 +68,12 @@ public class ChorusNodeBlock extends BaseEntityBlock {
             return InteractionResult.PASS;
         }
 
-        if (node.getChannelColor().isPresent()) {
-            // TODO: effect when already has a channel
-            return InteractionResult.PASS;
-        }
-
-        // TODO: this is a prototype
+        // TODO: make a core item.
         if (stack.is(Items.GOLD_INGOT)) {
-            node.activateChannel(DyeColor.YELLOW);
             stack.consume(1, player);
             return InteractionResult.CONSUME;
         }
         if (stack.is(Items.COPPER_INGOT)) {
-            node.activateChannel(DyeColor.BROWN);
             stack.consume(1, player);
             return InteractionResult.CONSUME;
         }
@@ -109,19 +107,18 @@ public class ChorusNodeBlock extends BaseEntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (level.getBlockEntity(pos) instanceof ChorusNodeBlockEntity node) {
-            var channel = node.getChannelColor();
-            if (channel.isEmpty()) return;
-
-            var color = new ColorHelper.Color(channel.get());
-            var particle = feature().registers.particleType;
-
-            var x = ((double) pos.getX() + 0.5d);
-            var y = ((double) pos.getY());
-            var z = ((double) pos.getZ() + 0.5d);
-
-            level.addParticle(particle, x, y, z, color.getRed(), color.getGreen(), color.getBlue());
-        }
+//        if (level.getBlockEntity(pos) instanceof ChorusNodeBlockEntity node) {
+//            if (node.getColor().isEmpty()) return;
+//
+//            var color = new ColorHelper.Color(node.getColor().get());
+//            var particle = feature().registers.particleType;
+//
+//            var x = ((double) pos.getX() + 0.5d);
+//            var y = ((double) pos.getY());
+//            var z = ((double) pos.getZ() + 0.5d);
+//
+//            level.addParticle(particle, x, y, z, color.getRed(), color.getGreen(), color.getBlue());
+//        }
     }
 
     public ChorusNetwork feature() {
