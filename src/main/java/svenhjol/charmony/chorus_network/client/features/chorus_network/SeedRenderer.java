@@ -28,7 +28,7 @@ public class SeedRenderer<T extends SeedBlockEntity> implements BlockEntityRende
 
         if (seed.isCollapsing()) {
             if (seed.collapseAnimation < 0.5f) {
-                seed.collapseAnimation = seed.collapseAnimation * 1.04f;
+                seed.collapseAnimation *= 1.04f;
 
                 sideMinMargin += seed.collapseAnimation;
                 sideMaxMargin -= seed.collapseAnimation;
