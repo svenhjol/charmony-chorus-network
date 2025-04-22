@@ -44,7 +44,7 @@ public class ChestBlockEntity extends BlockEntity implements LidBlockEntity {
                 ChorusNetwork.feature().registers.chestCloseSound.get(),
                 SoundSource.BLOCKS,
                 0.5F,
-                level.random.nextFloat() * 0.1F + 0.82F
+                level.random.nextFloat() * 0.1F + 0.9F
             );
         }
 
