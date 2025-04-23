@@ -29,7 +29,7 @@ public class CoreMaterialParticle extends CustomParticle {
 
         public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double r, double g, double b) {
             var particle = new CoreMaterialParticle(level, x, y, z,
-                0.5d - RANDOM.nextDouble(), 0.5d - RANDOM.nextDouble(), 0.5d - RANDOM.nextDouble(), this.sprite);
+                0, 0, 0, this.sprite);
             particle.setLifetime(20 + RANDOM.nextInt(15));
 
             var d = RANDOM.nextDouble() * 0.25d;

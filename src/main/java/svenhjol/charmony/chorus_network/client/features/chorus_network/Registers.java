@@ -1,7 +1,6 @@
 package svenhjol.charmony.chorus_network.client.features.chorus_network;
 
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.ChestRenderer;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charmony.core.base.Setup;
@@ -22,7 +21,7 @@ public class Registers extends Setup<ChorusNetwork> {
 
         registry.blockEntityRenderer(common.registers.seedBlockEntity, () -> SeedRenderer::new);
         registry.blockEntityRenderer(common.registers.coreBlockEntity, () -> CoreRenderer::new);
-        registry.blockEntityRenderer(common.registers.chestBlockEntity, () -> ChestRenderer::new);
+        registry.blockEntityRenderer(common.registers.chestBlockEntity, () -> ChorusChestRenderer::new);
         registry.particle(feature.common.get().registers.particleType, CoreMaterialParticle.Provider::new);
         registry.menuScreen(common.registers.menu, () -> ChannelScreen::new);
     }

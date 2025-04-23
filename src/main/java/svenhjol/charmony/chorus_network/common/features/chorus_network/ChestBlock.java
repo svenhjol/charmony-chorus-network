@@ -182,7 +182,7 @@ public class ChestBlock extends AbstractChestBlock<ChestBlockEntity> implements 
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        feature().handlers.addMaterialParticle(level, pos, material, random, 0.5d, 0.12d);
+        feature().handlers.addMaterialParticle(level, pos, material, random, 0.4d, 0.13d);
     }
 
     private ChorusNetwork feature() {
