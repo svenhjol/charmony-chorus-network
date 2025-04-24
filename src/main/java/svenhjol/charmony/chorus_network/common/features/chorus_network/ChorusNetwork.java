@@ -7,8 +7,6 @@ import svenhjol.charmony.core.base.Mod;
 import svenhjol.charmony.core.base.SidedFeature;
 import svenhjol.charmony.core.enums.Side;
 
-import java.util.List;
-
 @FeatureDefinition(side = Side.Common, description = """
     TODO""")
 public final class ChorusNetwork extends SidedFeature {
