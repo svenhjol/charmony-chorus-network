@@ -13,6 +13,7 @@ public final class ChorusNetwork extends SidedFeature {
     public final Handlers handlers;
     public final Registers registers;
     public final ItemTidyingProviders itemTidyingProviders;
+    public final DarkModeProviders darkModeProviders;
 
     public ChorusNetwork(Mod mod) {
         super(mod);
@@ -20,6 +21,7 @@ public final class ChorusNetwork extends SidedFeature {
         handlers = new Handlers(this);
         registers = new Registers(this);
         itemTidyingProviders = new ItemTidyingProviders(this);
+        darkModeProviders = new DarkModeProviders(this);
     }
 
     public static ChorusNetwork feature() {

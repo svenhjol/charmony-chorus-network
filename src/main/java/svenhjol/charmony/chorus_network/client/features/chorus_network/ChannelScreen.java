@@ -1,20 +1,16 @@
 package svenhjol.charmony.chorus_network.client.features.chorus_network;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.DyeColor;
-import svenhjol.charmony.api.UsesDarkMode;
 import svenhjol.charmony.chorus_network.ChorusNetworkMod;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.ChannelMenu;
 import svenhjol.charmony.core.helpers.ColorHelper;
 
-import java.util.function.Predicate;
-
-public class ChannelScreen extends AbstractContainerScreen<ChannelMenu> implements UsesDarkMode {
+public class ChannelScreen extends AbstractContainerScreen<ChannelMenu> {
     public static final ResourceLocation BACKGROUND = ChorusNetworkMod.id("textures/gui/container/chorus_chest.png");
 
     public ChannelScreen(ChannelMenu channelMenu, Inventory inventory, Component component) {
@@ -45,16 +41,6 @@ public class ChannelScreen extends AbstractContainerScreen<ChannelMenu> implemen
         var color = ColorHelper.tintForegroundColor(getChannelColor());
         guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, color, false);
         guiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, color, false);
-    }
-
-    @Override
-    public Predicate<Screen> usingDarkMode() {
-        return screen -> {
-            if (screen instanceof ChannelScreen channelScreen) {
-                return ColorHelper.DARK_MODE_COLORS.contains(channelScreen.getChannelColor());
-            }
-            return false;
-        };
     }
 
     protected DyeColor getChannelColor() {
