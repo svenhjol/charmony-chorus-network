@@ -16,12 +16,11 @@ public class Handlers extends Setup<ChorusNetwork> {
         super(feature);
     }
 
-    public boolean canSpawnSeed(LevelAccessor level, BlockPos pos) {
-        var rarity = feature().rarity();
-        return pos.getX() % rarity == 0 && pos.getZ() % rarity == 0;
+    public boolean canGenerateSeed(LevelAccessor level, BlockPos pos) {
+        return level.getRandom().nextDouble() < ChorusNetwork.feature().rarity();
     }
 
-    public boolean spawnSeed(LevelAccessor level, BlockPos pos) {
+    public boolean generateSeed(LevelAccessor level, BlockPos pos) {
         var block = feature().registers.seedBlock.get();
         return level.setBlock(pos, block.defaultBlockState(), 2);
     }

@@ -16,11 +16,18 @@ public final class ChorusNetwork extends SidedFeature {
     @Configurable(
         name = "Chorus seed rarity",
         description = """
-            Chance of generating a chorus seed in a chorus tree. The value is the distance between potential block positions.
-            Lower values increase the chance of a seed being generated.""",
+            Chance (out of 1.0) of generating a chorus seed when the generator would otherwise place a flower in the world.""",
         requireRestart = false
     )
-    private static int rarity = 16;
+    private static double rarity = 0.01d;
+
+    @Configurable(
+        name = "Renewable chorus seeds",
+        description = """
+            If true, chorus plants grown by the player may yield one or more chorus seeds.""",
+        requireRestart = true
+    )
+    private static boolean renewable = false;
 
     public ChorusNetwork(Mod mod) {
         super(mod);
@@ -32,7 +39,11 @@ public final class ChorusNetwork extends SidedFeature {
         return Mod.getSidedFeature(ChorusNetwork.class);
     }
 
-    public int rarity() {
-        return Mth.clamp(rarity, 1, 1024);
+    public double rarity() {
+        return Mth.clamp(rarity, 0.0d, 1.0d);
+    }
+
+    public boolean seedsAreRenewable() {
+        return renewable;
     }
 }
