@@ -1,6 +1,5 @@
 package svenhjol.charmony.chorus_network.common.features.chorus_network;
 
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -58,12 +57,18 @@ public class SeedBlockEntity extends SyncedBlockEntity {
             // This makes the chorus breaking effect.
             level.levelEvent(2001, pos, Block.getId(state));
 
+
             collapseMaterial = material;
             collapseTicks = 1;
 
             if (!level.isClientSide()) {
                 setChanged();
                 level.playSound(null, pos, ChorusNetwork.feature().registers.seedImplodeSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+            } else {
+                var random = level.getRandom();
+                for (int i = 0; i < 250; i++) {
+                    ChorusNetwork.feature().handlers.addMaterialParticle(level, pos, material, random, 0.45d, 1.0d);
+                }
             }
         }
     }
@@ -75,15 +80,8 @@ public class SeedBlockEntity extends SyncedBlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, SeedBlockEntity seed) {
         if (seed.isCollapsing()) {
             seed.collapseTicks++;
-
-            if (level instanceof ClientLevel clientLevel && seed.collapseMaterial != null) {
-                var random = level.getRandom();
-                for (int i = 0; i < seed.collapseTicks / 4; i++) {
-                    ChorusNetwork.feature().handlers.addMaterialParticle(clientLevel, pos, seed.collapseMaterial, random, 0.45d, 1.0d);
-                }
-            }
         }
-        if (seed.collapseTicks >= 30) {
+        if (seed.collapseTicks >= 40) {
             if (level instanceof ServerLevel serverLevel) {
                 ChorusNetwork.feature().handlers.dropCore(level, pos, seed.collapseMaterial);
                 level.playSound(null, pos, ChorusNetwork.feature().registers.coreCreateSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);

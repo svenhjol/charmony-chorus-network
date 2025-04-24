@@ -28,7 +28,7 @@ public class SeedRenderer<T extends SeedBlockEntity> implements BlockEntityRende
 
         if (seed.isCollapsing()) {
             if (seed.collapseAnimation < 0.5f) {
-                seed.collapseAnimation *= 1.04f;
+                seed.collapseAnimation *= 1.035f;
 
                 sideMinMargin += seed.collapseAnimation;
                 sideMaxMargin -= seed.collapseAnimation;
@@ -38,7 +38,7 @@ public class SeedRenderer<T extends SeedBlockEntity> implements BlockEntityRende
                 return;
             }
         } else {
-            seed.collapseAnimation = 0.001f;
+            seed.collapseAnimation = 0.0005f;
         }
 
         renderFace(pose, vertexConsumer, sideMinMargin, sideMaxMargin, vertMinMargin, vertMaxMargin, sideMaxMargin, sideMaxMargin, sideMaxMargin, sideMaxMargin); // South
