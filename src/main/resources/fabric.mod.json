@@ -4,7 +4,7 @@
   "version": "${mod_version}",
 
   "name": "Chorus Network",
-  "description": "Chorus network.",
+  "description": "Large storage shareable with other players over any distance.",
   "authors": [
     "svenhjol"
   ],
