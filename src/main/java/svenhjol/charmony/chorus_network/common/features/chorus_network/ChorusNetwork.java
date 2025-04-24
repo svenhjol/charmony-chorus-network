@@ -8,10 +8,11 @@ import svenhjol.charmony.core.base.SidedFeature;
 import svenhjol.charmony.core.enums.Side;
 
 @FeatureDefinition(side = Side.Common, description = """
-    TODO""")
+    Large storage shareable with other players over any distance.""")
 public final class ChorusNetwork extends SidedFeature {
     public final Handlers handlers;
     public final Registers registers;
+    public final Advancements advancements;
 
     @Configurable(
         name = "Chorus seed rarity",
@@ -33,6 +34,7 @@ public final class ChorusNetwork extends SidedFeature {
         super(mod);
         handlers = new Handlers(this);
         registers = new Registers(this);
+        advancements = new Advancements(this);
     }
 
     public static ChorusNetwork feature() {

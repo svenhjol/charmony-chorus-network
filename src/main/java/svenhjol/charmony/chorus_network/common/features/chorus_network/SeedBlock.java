@@ -102,6 +102,7 @@ public class SeedBlock extends BaseEntityBlock {
                 if (material.isPresent()) {
                     stack.consume(1, player);
                     seed.startCollapse(material.get());
+                    feature().advancements.activatedChorusSeed(player);
                     return InteractionResult.CONSUME;
                 }
             }

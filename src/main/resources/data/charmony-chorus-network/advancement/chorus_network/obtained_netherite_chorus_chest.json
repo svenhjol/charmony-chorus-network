@@ -1,0 +1,35 @@
+{
+  "parent": "charmony-chorus-network:chorus_network/activated_chorus_seed",
+  "display": {
+    "icon": {
+      "id": "charmony-chorus-network:netherite_chorus_chest"
+    },
+    "title": {
+      "translate": "advancements.charmony-chorus-network.obtained_netherite_chorus_chest.title"
+    },
+    "description": {
+      "translate": "advancements.charmony-chorus-network.obtained_netherite_chorus_chest.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_netherite_chorus_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charmony-chorus-network:netherite_chorus_chest"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_netherite_chorus_chest"
+    ]
+  ]
+}

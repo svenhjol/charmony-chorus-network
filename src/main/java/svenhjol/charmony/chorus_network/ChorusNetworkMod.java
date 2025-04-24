@@ -9,7 +9,7 @@ import svenhjol.charmony.core.enums.Side;
     id = ChorusNetworkMod.ID,
     sides = {Side.Client, Side.Common},
     name = "Chorus Network",
-    description = "Chorus network.")
+    description = "Large storage shareable with other players over any distance.")
 public final class ChorusNetworkMod extends Mod {
     public static final String ID = "charmony-chorus-network";
     private static ChorusNetworkMod instance;

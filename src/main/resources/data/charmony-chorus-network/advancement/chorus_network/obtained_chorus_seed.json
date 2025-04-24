@@ -1,0 +1,35 @@
+{
+  "parent": "charmony-chorus-network:root",
+  "display": {
+    "icon": {
+      "id": "charmony-chorus-network:chorus_seed"
+    },
+    "title": {
+      "translate": "advancements.charmony-chorus-network.obtained_chorus_seed.title"
+    },
+    "description": {
+      "translate": "advancements.charmony-chorus-network.obtained_chorus_seed.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_chorus_seed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charmony-chorus-network:chorus_seed"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_chorus_seed"
+    ]
+  ]
+}
