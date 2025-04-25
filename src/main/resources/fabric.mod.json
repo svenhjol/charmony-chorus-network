@@ -3,7 +3,7 @@
   "id": "charmony-chorus-network",
   "version": "${mod_version}",
 
-  "name": "Chorus Network",
+  "name": "Charmony Chorus Network",
   "description": "Large storage shareable with other players over any distance.",
   "authors": [
     "svenhjol"

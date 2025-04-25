@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3
+
+- Add "Charmony" to the mod title so it lists in the correct place in ModMenu.
+
 ## 1.0.2
 
 - Add recipe unlocking after picking up a core or a chorus flower.
