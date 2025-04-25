@@ -8,7 +8,8 @@ import svenhjol.charmony.core.base.SidedFeature;
 import svenhjol.charmony.core.enums.Side;
 
 @FeatureDefinition(side = Side.Common, description = """
-    Large storage shareable with other players over any distance.""")
+    Large storage shareable with other players over any distance.
+    Chorus seeds can be activated with any armor trim material.""")
 public final class ChorusNetwork extends SidedFeature {
     public final Handlers handlers;
     public final Registers registers;

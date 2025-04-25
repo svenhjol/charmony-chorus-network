@@ -5,13 +5,17 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charmony.core.common.SyncedBlockEntity;
+import svenhjol.charmony.core.helpers.PlayerHelper;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SeedBlockEntity extends SyncedBlockEntity {
     public static final String COLLAPSE_MATERIAL = "collapse_material";
@@ -80,15 +84,38 @@ public class SeedBlockEntity extends SyncedBlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, SeedBlockEntity seed) {
         if (seed.isCollapsing()) {
             seed.collapseTicks++;
+            if (seed.collapseTicks >= 40) {
+                if (level instanceof ServerLevel serverLevel) {
+                    ChorusNetwork.feature().handlers.dropCore(level, pos, seed.collapseMaterial);
+                    level.playSound(null, pos, ChorusNetwork.feature().registers.coreCreateSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+                    serverLevel.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+                    serverLevel.removeBlockEntity(pos);
+                }
+            }
+            setChanged(level, pos, state);
         }
-        if (seed.collapseTicks >= 40) {
-            if (level instanceof ServerLevel serverLevel) {
-                ChorusNetwork.feature().handlers.dropCore(level, pos, seed.collapseMaterial);
-                level.playSound(null, pos, ChorusNetwork.feature().registers.coreCreateSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
-                serverLevel.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
-                serverLevel.removeBlockEntity(pos);
+
+        if (!seed.isCollapsing() && level.getGameTime() % 5 == 0) {
+            List<CoreMaterial> nearbyMaterials = new ArrayList<>();
+
+            var players = PlayerHelper.getPlayersInRange(level, pos, 4);
+            for (var player : players) {
+                ItemStack held = null;
+                if (player.getMainHandItem().is(Tags.CORE_MATERIALS)) {
+                    held = player.getMainHandItem();
+                } else if (player.getOffhandItem().is(Tags.CORE_MATERIALS)) {
+                    held = player.getOffhandItem();
+                }
+                if (held != null) {
+                    CoreMaterial.byItem(held).ifPresent(nearbyMaterials::add);
+                }
+            }
+
+            for (var material : nearbyMaterials) {
+                for (int i = 0; i < 2; i++) {
+                    ChorusNetwork.feature().handlers.addMaterialParticle(level, pos, material, level.getRandom(), 0.45d, 0.8d);
+                }
             }
         }
-        setChanged(level, pos, state);
     }
 }

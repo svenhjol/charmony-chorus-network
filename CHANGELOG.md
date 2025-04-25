@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.2
+
+- Add recipe unlocking after picking up a core or a chorus flower.
+- Add tags for chorus chests and cores.
+- Add text to the mod description to explain how to activate a seed.
+- Add material particles when holding a core material near a seed.
+
 ## 1.0.1
 
 - Update icon and description.

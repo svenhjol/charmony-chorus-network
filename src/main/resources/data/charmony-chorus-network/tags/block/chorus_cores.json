@@ -1,0 +1,15 @@
+{
+  "values": [
+    "charmony-chorus-network:gold_chorus_core",
+    "charmony-chorus-network:resin_chorus_core",
+    "charmony-chorus-network:copper_chorus_core",
+    "charmony-chorus-network:redstone_chorus_core",
+    "charmony-chorus-network:amethyst_chorus_core",
+    "charmony-chorus-network:lapis_chorus_core",
+    "charmony-chorus-network:diamond_chorus_core",
+    "charmony-chorus-network:emerald_chorus_core",
+    "charmony-chorus-network:quartz_chorus_core",
+    "charmony-chorus-network:iron_chorus_core",
+    "charmony-chorus-network:netherite_chorus_core"
+  ]
+}
