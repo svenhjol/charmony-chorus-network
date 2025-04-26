@@ -12,12 +12,13 @@ import net.minecraft.world.level.block.entity.ChestLidController;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charmony.api.materials.ChorusCoreMaterial;
 
 public class ChestBlockEntity extends BlockEntity implements LidBlockEntity {
     public static final String MATERIAL_TAG = "material";
 
     private final ChestLidController chestLidController = new ChestLidController();
-    private CoreMaterial material;
+    private ChorusCoreMaterial material;
 
     private final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         @Override
@@ -80,7 +81,7 @@ public class ChestBlockEntity extends BlockEntity implements LidBlockEntity {
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
         var material = tag.getIntOr(MATERIAL_TAG, 0);
-        this.material = CoreMaterial.byId(material);
+        this.material = ChorusCoreMaterial.byId(material);
     }
 
     /**
@@ -127,7 +128,7 @@ public class ChestBlockEntity extends BlockEntity implements LidBlockEntity {
         return Container.stillValidBlockEntity(this, player);
     }
 
-    public CoreMaterial getMaterial() {
+    public ChorusCoreMaterial getMaterial() {
         return material;
     }
 }

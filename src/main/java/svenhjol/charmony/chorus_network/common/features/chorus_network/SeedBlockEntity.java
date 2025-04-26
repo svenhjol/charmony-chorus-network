@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charmony.api.materials.ChorusCoreMaterial;
 import svenhjol.charmony.core.common.SyncedBlockEntity;
 import svenhjol.charmony.core.helpers.PlayerHelper;
 
@@ -21,7 +22,7 @@ public class SeedBlockEntity extends SyncedBlockEntity {
     public static final String COLLAPSE_MATERIAL = "collapse_material";
     public static final String COLLAPSE_TICKS = "collapse_ticks";
 
-    protected @Nullable CoreMaterial collapseMaterial;
+    protected @Nullable ChorusCoreMaterial collapseMaterial;
     protected int collapseTicks;
 
     public float collapseAnimation = 0f;
@@ -35,7 +36,7 @@ public class SeedBlockEntity extends SyncedBlockEntity {
         super.loadAdditional(tag, provider);
         this.collapseTicks = tag.getIntOr(COLLAPSE_TICKS, 0);
 
-        var opt = CoreMaterial.byName(tag.getStringOr(COLLAPSE_MATERIAL, ""));
+        var opt = ChorusCoreMaterial.byName(tag.getStringOr(COLLAPSE_MATERIAL, ""));
         opt.ifPresent(material -> this.collapseMaterial = material);
     }
 
@@ -49,7 +50,7 @@ public class SeedBlockEntity extends SyncedBlockEntity {
         }
     }
 
-    public void startCollapse(CoreMaterial material) {
+    public void startCollapse(ChorusCoreMaterial material) {
         var level = getLevel();
         var pos = getBlockPos();
         var state = getBlockState();
@@ -96,7 +97,7 @@ public class SeedBlockEntity extends SyncedBlockEntity {
         }
 
         if (!seed.isCollapsing() && level.getGameTime() % 5 == 0) {
-            List<CoreMaterial> nearbyMaterials = new ArrayList<>();
+            List<ChorusCoreMaterial> nearbyMaterials = new ArrayList<>();
 
             var players = PlayerHelper.getPlayersInRange(level, pos, 4);
             for (var player : players) {
@@ -107,7 +108,7 @@ public class SeedBlockEntity extends SyncedBlockEntity {
                     held = player.getOffhandItem();
                 }
                 if (held != null) {
-                    CoreMaterial.byItem(held).ifPresent(nearbyMaterials::add);
+                    ChorusCoreMaterial.byItem(held).ifPresent(nearbyMaterials::add);
                 }
             }
 

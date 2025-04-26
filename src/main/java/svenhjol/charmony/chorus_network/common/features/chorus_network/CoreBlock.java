@@ -28,21 +28,22 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import svenhjol.charmony.api.materials.ChorusCoreMaterial;
 
 import java.util.function.Supplier;
 
 public class CoreBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<CoreBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-        CoreMaterial.CODEC.fieldOf("material").forGetter(CoreBlock::getMaterial),
+        ChorusCoreMaterial.CODEC.fieldOf("material").forGetter(CoreBlock::getMaterial),
         propertiesCodec()
     ).apply(instance, CoreBlock::new));
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final VoxelShape SHAPE = Block.column(8.0, 0.0, 8.0);
 
-    private final CoreMaterial material;
+    private final ChorusCoreMaterial material;
 
-    public CoreBlock(ResourceKey<Block> key, CoreMaterial material) {
+    public CoreBlock(ResourceKey<Block> key, ChorusCoreMaterial material) {
         this(material, Properties.of()
             .mapColor(material.getColor())
             .strength(15.0f, 1200.0f)
@@ -51,7 +52,7 @@ public class CoreBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
             .setId(key));
     }
 
-    public CoreBlock(CoreMaterial material, Properties properties) {
+    public CoreBlock(ChorusCoreMaterial material, Properties properties) {
         super(properties);
         registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
         this.material = material;
@@ -67,7 +68,7 @@ public class CoreBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
         return new CoreBlockEntity(pos, state);
     }
 
-    public CoreMaterial getMaterial() {
+    public ChorusCoreMaterial getMaterial() {
         return this.material;
     }
 

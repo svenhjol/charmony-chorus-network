@@ -37,12 +37,13 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import svenhjol.charmony.api.materials.ChorusCoreMaterial;
 
 import java.util.function.Supplier;
 
 public class ChestBlock extends AbstractChestBlock<ChestBlockEntity> implements SimpleWaterloggedBlock {
     public static final MapCodec<ChestBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-        CoreMaterial.CODEC.fieldOf("material").forGetter(ChestBlock::getMaterial),
+        ChorusCoreMaterial.CODEC.fieldOf("material").forGetter(ChestBlock::getMaterial),
         propertiesCodec()
     ).apply(instance, ChestBlock::new));
 
@@ -51,9 +52,9 @@ public class ChestBlock extends AbstractChestBlock<ChestBlockEntity> implements 
 
     private static final VoxelShape SHAPE = Block.column(14.0, 0.0, 14.0);
 
-    private final CoreMaterial material;
+    private final ChorusCoreMaterial material;
 
-    public ChestBlock(ResourceKey<Block> key, CoreMaterial material) {
+    public ChestBlock(ResourceKey<Block> key, ChorusCoreMaterial material) {
         this(material, Properties.of()
             .mapColor(MapColor.COLOR_PURPLE)
             .strength(2.5f, 600.0f)
@@ -61,7 +62,7 @@ public class ChestBlock extends AbstractChestBlock<ChestBlockEntity> implements 
             .setId(key));
     }
 
-    public ChestBlock(CoreMaterial material, Properties properties) {
+    public ChestBlock(ChorusCoreMaterial material, Properties properties) {
         super(properties, () -> ChorusNetwork.feature().registers.chestBlockEntity.get());
         registerDefaultState(stateDefinition.any()
             .setValue(FACING, Direction.NORTH)
@@ -70,7 +71,7 @@ public class ChestBlock extends AbstractChestBlock<ChestBlockEntity> implements 
         this.material = material;
     }
 
-    public CoreMaterial getMaterial() {
+    public ChorusCoreMaterial getMaterial() {
         return this.material;
     }
 

@@ -8,6 +8,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import svenhjol.charmony.api.materials.ChorusCoreMaterial;
 import svenhjol.charmony.core.base.Setup;
 import svenhjol.charmony.core.helpers.ColorHelper;
 
@@ -25,7 +26,7 @@ public class Handlers extends Setup<ChorusNetwork> {
         return level.setBlock(pos, block.defaultBlockState(), 2);
     }
 
-    public void dropCore(Level level, BlockPos pos, CoreMaterial material) {
+    public void dropCore(Level level, BlockPos pos, ChorusCoreMaterial material) {
         if (level instanceof ServerLevel serverLevel) {
             var item = feature().registers.coreBlockItems.get(material).get();
             var entity = new ItemEntity(serverLevel, pos.getX() + 0.5d, pos.getY() + 0.5d, pos.getZ() + 0.5d, new ItemStack(item));
@@ -33,7 +34,7 @@ public class Handlers extends Setup<ChorusNetwork> {
         }
     }
 
-    public void addMaterialParticle(Level level, BlockPos pos, CoreMaterial material, RandomSource random, double yOffset, double chance) {
+    public void addMaterialParticle(Level level, BlockPos pos, ChorusCoreMaterial material, RandomSource random, double yOffset, double chance) {
         var particle = feature().registers.particleType;
         var helper = new ColorHelper.Color(material.getColor());
 

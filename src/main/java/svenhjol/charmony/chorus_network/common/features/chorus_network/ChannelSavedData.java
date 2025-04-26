@@ -6,6 +6,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
+import svenhjol.charmony.api.materials.ChorusCoreMaterial;
 import svenhjol.charmony.chorus_network.ChorusNetworkMod;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class ChannelSavedData extends SavedData {
         setDirty();
     }
 
-    public Channel getOrCreate(CoreMaterial material) {
+    public Channel getOrCreate(ChorusCoreMaterial material) {
         return channels.stream()
             .filter(c -> c.material().equals(material))
             .findFirst()

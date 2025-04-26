@@ -8,6 +8,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import svenhjol.charmony.api.materials.ChorusCoreMaterial;
 import svenhjol.charmony.chorus_network.ChorusNetworkMod;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.ChestBlock.ChestBlockItem;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.CoreBlock.CoreBlockItem;
@@ -31,11 +32,11 @@ public class Registers extends Setup<ChorusNetwork> {
 
     public final Supplier<BlockEntityType<ChestBlockEntity>> chestBlockEntity;
 
-    public final Map<CoreMaterial, Supplier<ChestBlock>> chestBlocks = new HashMap<>();
-    public final Map<CoreMaterial, Supplier<ChestBlockItem>> chestBlockItems = new HashMap<>();
+    public final Map<ChorusCoreMaterial, Supplier<ChestBlock>> chestBlocks = new HashMap<>();
+    public final Map<ChorusCoreMaterial, Supplier<ChestBlockItem>> chestBlockItems = new HashMap<>();
 
-    public final Map<CoreMaterial, Supplier<CoreBlock>> coreBlocks = new HashMap<>();
-    public final Map<CoreMaterial, Supplier<CoreBlockItem>> coreBlockItems = new HashMap<>();
+    public final Map<ChorusCoreMaterial, Supplier<CoreBlock>> coreBlocks = new HashMap<>();
+    public final Map<ChorusCoreMaterial, Supplier<CoreBlockItem>> coreBlockItems = new HashMap<>();
 
     public final Supplier<BlockEntityType<CoreBlockEntity>> coreBlockEntity;
 
@@ -58,7 +59,7 @@ public class Registers extends Setup<ChorusNetwork> {
         seedBlockEntity = registry.blockEntity(SEED_ID, () -> SeedBlockEntity::new, List.of(seedBlock));
 
         // For each core material, register a chest and a core.
-        for (var material : CoreMaterial.values()) {
+        for (var material : ChorusCoreMaterial.values()) {
             var chestName = material.getSerializedName() + "_chorus_chest";
             var chestBlock = registry.block(chestName, key -> new ChestBlock(key, material));
             var chestItem = registry.item(chestName, key -> new ChestBlockItem(key, chestBlock));

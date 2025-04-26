@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+- Update to API 1.18
+
 ## 1.0.4
 
 - Remove unused render method.

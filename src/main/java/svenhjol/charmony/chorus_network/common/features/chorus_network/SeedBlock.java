@@ -34,6 +34,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import svenhjol.charmony.api.materials.ChorusCoreMaterial;
 
 import java.util.function.Supplier;
 
@@ -98,7 +99,7 @@ public class SeedBlock extends BaseEntityBlock {
             if (seed.isCollapsing()) {
                 return InteractionResult.PASS;
             } else {
-                var material = CoreMaterial.byItem(stack);
+                var material = ChorusCoreMaterial.byItem(stack);
                 if (material.isPresent()) {
                     stack.consume(1, player);
                     seed.startCollapse(material.get());
