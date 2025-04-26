@@ -23,6 +23,9 @@
     ],
     "client": [
       "svenhjol.charmony.chorus_network.client.ClientInitializer"
+    ],
+    "modmenu": [
+      "svenhjol.charmony.chorus_network.integration.ModMenuPlugin"
     ]
   },
 
@@ -38,5 +41,14 @@
   "contact": {
     "homepage": "https://charmony.dev/mods/${mod_id}",
     "sources": "https://github.com/svenhjol/${mod_id}"
+  },
+
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "${discord_link}"
+      },
+      "update_checker": true
+    }
   }
 }
