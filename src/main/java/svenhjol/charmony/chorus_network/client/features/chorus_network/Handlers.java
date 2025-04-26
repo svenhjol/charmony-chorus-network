@@ -2,10 +2,7 @@ package svenhjol.charmony.chorus_network.client.features.chorus_network;
 
 import net.minecraft.client.renderer.MaterialMapper;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.special.ChestSpecialRenderer;
-import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.client.resources.model.Material;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import svenhjol.charmony.chorus_network.ChorusNetworkMod;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.ChestBlockEntity;
@@ -28,22 +25,6 @@ public class Handlers extends Setup<ChorusNetwork> {
             var sheetMaterial = mapper.apply(ChorusNetworkMod.id(name));
             CHEST_MATERIALS.put(coreMaterial, sheetMaterial);
         }
-    }
-
-    /**
-     * May not be required. See SpecialModelRenderersMixin
-     */
-    public Map<Block, SpecialModelRenderer.Unbaked> addChestTextures(Map<Block, SpecialModelRenderer.Unbaked> map) {
-        var common = feature().common.get();
-
-        for (var entry : common.registers.chestBlocks.entrySet()) {
-            var material = entry.getKey();
-            var block = entry.getValue().get();
-            var resource = ChorusNetworkMod.id(material.getSerializedName() + "_chorus");
-            map.put(block, new ChestSpecialRenderer.Unbaked(resource));
-        }
-
-        return map;
     }
 
     public Optional<Material> useCustomMaterial(BlockEntity blockEntity) {

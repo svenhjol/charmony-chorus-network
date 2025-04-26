@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4
+
+- Remove unused render method.
+
 ## 1.0.3
 
 - Add "Charmony" to the mod title so it lists in the correct place in ModMenu.
