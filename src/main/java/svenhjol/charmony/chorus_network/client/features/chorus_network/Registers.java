@@ -23,7 +23,7 @@ public class Registers extends Setup<ChorusNetwork> {
         registry.blockEntityRenderer(common.registers.coreBlockEntity, () -> CoreRenderer::new);
         registry.blockEntityRenderer(common.registers.chestBlockEntity, () -> ChorusChestRenderer::new);
         registry.particle(feature.common.get().registers.particleType, CoreMaterialParticle.Provider::new);
-        registry.menuScreen(common.registers.menu, () -> ChannelScreen::new);
+        registry.menuScreen(common.registers.menu.get(), ChannelScreen::new);
     }
 
     @Override

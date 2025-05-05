@@ -2,12 +2,14 @@ package svenhjol.charmony.chorus_network.client.features.chorus_network;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.DyeColor;
 import svenhjol.charmony.chorus_network.ChorusNetworkMod;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.ChannelMenu;
+import svenhjol.charmony.core.client.TintedGuiGraphics;
 import svenhjol.charmony.core.helpers.ColorHelper;
 
 public class ChannelScreen extends AbstractContainerScreen<ChannelMenu> {
@@ -32,8 +34,8 @@ public class ChannelScreen extends AbstractContainerScreen<ChannelMenu> {
         var x = (width - imageWidth) / 2;
         var y = (height - imageHeight) / 2;
 
-        var tinted = ColorHelper.tintBackgroundColor(getChannelColor());
-        ColorHelper.tintTexture(guiGraphics, BACKGROUND, tinted, x, y, 0.0f, 0.0f, imageWidth, imageHeight);
+        var bgColor = ColorHelper.tintBackgroundColor(getChannelColor());
+        ((TintedGuiGraphics)guiGraphics).tint(bgColor).blit(RenderType::guiTextured, BACKGROUND, x, y, 0.0f, 0.0f, imageWidth, imageHeight, 256, 256);
     }
 
     @Override
