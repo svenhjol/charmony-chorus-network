@@ -18,7 +18,7 @@ public class Handlers extends Setup<ChorusNetwork> {
     }
 
     public boolean canGenerateSeed(LevelAccessor level, BlockPos pos) {
-        return level.getRandom().nextDouble() < ChorusNetwork.feature().rarity();
+        return level.getRandom().nextInt(1000) < ChorusNetwork.feature().rarity();
     }
 
     public boolean generateSeed(LevelAccessor level, BlockPos pos) {

@@ -18,10 +18,10 @@ public final class ChorusNetwork extends SidedFeature {
     @Configurable(
         name = "Chorus seed rarity",
         description = """
-            Chance (out of 1.0) of generating a chorus seed when the generator would otherwise place a flower in the world.""",
+            Chance (out of 1000) of generating a chorus seed when the generator would otherwise place a flower in the world.""",
         requireRestart = false
     )
-    private static double rarity = 0.01d;
+    private static int rarity = 10;
 
     @Configurable(
         name = "Renewable chorus seeds",
@@ -42,8 +42,8 @@ public final class ChorusNetwork extends SidedFeature {
         return Mod.getSidedFeature(ChorusNetwork.class);
     }
 
-    public double rarity() {
-        return Mth.clamp(rarity, 0.0d, 1.0d);
+    public int rarity() {
+        return Mth.clamp(rarity, 1, 1000);
     }
 
     public boolean seedsAreRenewable() {

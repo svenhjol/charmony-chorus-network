@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2
+
+- Rarity now scales out of 1000.
+
 ## 1.1.1
 
 - Update to work with latest API and Charmony.
