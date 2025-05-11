@@ -36,9 +36,9 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
-import svenhjol.charmony.api.materials.ChorusCoreMaterial;
+import svenhjol.charmony.api.chorus_network.ChorusCoreMaterial;
 
+import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class ChestBlock extends AbstractChestBlock<ChestBlockEntity> implements SimpleWaterloggedBlock {

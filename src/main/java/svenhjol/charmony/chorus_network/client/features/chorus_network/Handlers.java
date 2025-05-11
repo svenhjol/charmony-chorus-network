@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.MaterialMapper;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import svenhjol.charmony.api.materials.ChorusCoreMaterial;
+import svenhjol.charmony.api.chorus_network.ChorusCoreMaterial;
 import svenhjol.charmony.chorus_network.ChorusNetworkMod;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.ChestBlockEntity;
 import svenhjol.charmony.core.base.Setup;

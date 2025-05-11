@@ -6,7 +6,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
-import svenhjol.charmony.api.materials.ChorusCoreMaterial;
+import svenhjol.charmony.api.chorus_network.ChorusCoreMaterial;
 import svenhjol.charmony.chorus_network.ChorusNetworkMod;
 
 import java.util.ArrayList;
@@ -17,6 +17,7 @@ public class ChannelSavedData extends SavedData {
         Channel.CODEC.listOf().fieldOf("channels").forGetter(data -> data.channels)
     ).apply(instance, ChannelSavedData::new));
 
+    @SuppressWarnings("DataFlowIssue")
     public static final SavedDataType<ChannelSavedData> TYPE = new SavedDataType<>(
         ChorusNetworkMod.ID + "-channels",
         ChannelSavedData::new,

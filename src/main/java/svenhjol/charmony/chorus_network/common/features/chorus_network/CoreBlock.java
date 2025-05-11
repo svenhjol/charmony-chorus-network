@@ -27,9 +27,9 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
-import svenhjol.charmony.api.materials.ChorusCoreMaterial;
+import svenhjol.charmony.api.chorus_network.ChorusCoreMaterial;
 
+import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class CoreBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {

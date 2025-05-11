@@ -12,8 +12,9 @@ import net.minecraft.world.level.block.entity.ChestLidController;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charmony.api.materials.ChorusCoreMaterial;
+import svenhjol.charmony.api.chorus_network.ChorusCoreMaterial;
 
+@SuppressWarnings("unused")
 public class ChestBlockEntity extends BlockEntity implements LidBlockEntity {
     public static final String MATERIAL_TAG = "material";
 

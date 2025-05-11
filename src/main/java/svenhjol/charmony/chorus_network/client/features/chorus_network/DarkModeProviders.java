@@ -2,7 +2,7 @@ package svenhjol.charmony.chorus_network.client.features.chorus_network;
 
 import net.minecraft.client.gui.screens.Screen;
 import svenhjol.charmony.api.Api;
-import svenhjol.charmony.api.DarkModeProvider;
+import svenhjol.charmony.api.tweaks.DarkModeProvider;
 import svenhjol.charmony.core.base.Setup;
 import svenhjol.charmony.core.helpers.ColorHelper;
 

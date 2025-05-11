@@ -8,10 +8,11 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import svenhjol.charmony.api.materials.ChorusCoreMaterial;
+import svenhjol.charmony.api.chorus_network.ChorusCoreMaterial;
 import svenhjol.charmony.core.base.Setup;
 import svenhjol.charmony.core.helpers.ColorHelper;
 
+@SuppressWarnings("unused")
 public class Handlers extends Setup<ChorusNetwork> {
     public Handlers(ChorusNetwork feature) {
         super(feature);

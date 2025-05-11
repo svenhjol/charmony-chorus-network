@@ -33,11 +33,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
-import svenhjol.charmony.api.materials.ChorusCoreMaterial;
+import svenhjol.charmony.api.chorus_network.ChorusCoreMaterial;
 
+import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public class SeedBlock extends BaseEntityBlock {
     public static final BooleanProperty COLLAPSING = BooleanProperty.create("collapsing");
     public static final MapCodec<SeedBlock> CODEC = simpleCodec(SeedBlock::new);

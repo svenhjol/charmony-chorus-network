@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+- Update for API 1.20
+
 ## 1.1.2
 
 - Rarity now scales out of 1000.

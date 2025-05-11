@@ -3,9 +3,9 @@ package svenhjol.charmony.chorus_network.client.features.chorus_network;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.gui.screens.Screen;
 import svenhjol.charmony.api.Api;
-import svenhjol.charmony.api.ItemTidyingButtonTweak;
-import svenhjol.charmony.api.ItemTidyingButtonTweakProvider;
-import svenhjol.charmony.api.ItemTidyingWhitelistProvider;
+import svenhjol.charmony.api.tweaks.ItemTidyingButtonTweak;
+import svenhjol.charmony.api.tweaks.ItemTidyingButtonTweakProvider;
+import svenhjol.charmony.api.tweaks.ItemTidyingWhitelistProvider;
 import svenhjol.charmony.core.base.Setup;
 
 import java.util.List;

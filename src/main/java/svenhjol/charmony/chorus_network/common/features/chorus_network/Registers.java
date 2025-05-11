@@ -8,7 +8,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import svenhjol.charmony.api.materials.ChorusCoreMaterial;
+import svenhjol.charmony.api.chorus_network.ChorusCoreMaterial;
 import svenhjol.charmony.chorus_network.ChorusNetworkMod;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.ChestBlock.ChestBlockItem;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.CoreBlock.CoreBlockItem;
@@ -100,8 +100,6 @@ public class Registers extends Setup<ChorusNetwork> {
 
     @Override
     public Runnable boot() {
-        return () -> {
-            ServerLifecycleEvents.SERVER_STARTED.register(feature().handlers::serverStarted);
-        };
+        return () -> ServerLifecycleEvents.SERVER_STARTED.register(feature().handlers::serverStarted);
     }
 }
