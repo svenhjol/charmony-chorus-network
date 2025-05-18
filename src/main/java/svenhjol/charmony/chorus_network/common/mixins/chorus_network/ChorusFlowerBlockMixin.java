@@ -1,5 +1,7 @@
 package svenhjol.charmony.chorus_network.common.mixins.chorus_network;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -9,14 +11,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.ChorusNetwork;
 
 @Mixin(ChorusFlowerBlock.class)
 public class ChorusFlowerBlockMixin {
-
-    @Redirect(
+    @WrapOperation(
         method = "growTreeRecursive",
         at = @At(
             value = "INVOKE",
@@ -24,13 +24,11 @@ public class ChorusFlowerBlockMixin {
             ordinal = 4
         )
     )
-    private static boolean hookGrowTreeRecursive(LevelAccessor level, BlockPos pos, BlockState state, int i) {
+    private static boolean hookGrowTreeRecursive(LevelAccessor level, BlockPos pos, BlockState state, int i, Operation<Boolean> original) {
         if (feature().handlers.canGenerateSeed(level, pos)) {
             return feature().handlers.generateSeed(level, pos);
         }
-
-        // Fallback to default.
-        return level.setBlock(pos, state, i);
+        return original.call(level, pos, state, i);
     }
 
     @Inject(
