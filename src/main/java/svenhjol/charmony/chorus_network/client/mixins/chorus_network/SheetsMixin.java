@@ -16,7 +16,7 @@ public class SheetsMixin {
     @WrapMethod(
         method = "chooseMaterial(Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/level/block/state/properties/ChestType;Z)Lnet/minecraft/client/resources/model/Material;"
     )
-    private static Material test(BlockEntity blockEntity, ChestType chestType, boolean bl, Operation<Material> original) {
+    private static Material hookChooseMaterial(BlockEntity blockEntity, ChestType chestType, boolean bl, Operation<Material> original) {
         Optional<Material> opt = ChorusNetwork.feature().handlers.useCustomMaterial(blockEntity);
         return opt.orElseGet(() -> original.call(blockEntity, chestType, bl));
     }
