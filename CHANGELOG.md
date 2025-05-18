@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0
+
+- Update for Charmony and API.
+
 ## 1.2.0
 
 - Update for API 1.20

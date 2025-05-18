@@ -9,8 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import svenhjol.charmony.api.chorus_network.ChorusCoreMaterial;
+import svenhjol.charmony.api.core.Color;
 import svenhjol.charmony.core.base.Setup;
-import svenhjol.charmony.core.helpers.ColorHelper;
 
 @SuppressWarnings("unused")
 public class Handlers extends Setup<ChorusNetwork> {
@@ -37,14 +37,14 @@ public class Handlers extends Setup<ChorusNetwork> {
 
     public void addMaterialParticle(Level level, BlockPos pos, ChorusCoreMaterial material, RandomSource random, double yOffset, double chance) {
         var particle = feature().registers.particleType;
-        var helper = new ColorHelper.Color(material.getColor());
+        var color = new Color(material.getColor());
 
         if (random.nextDouble() < chance) {
             var x = ((double) pos.getX() + 0.5d);
             var y = ((double) pos.getY() + yOffset);
             var z = ((double) pos.getZ() + 0.5d);
 
-            level.addParticle(particle, x, y, z, helper.getRed(), helper.getGreen(), helper.getBlue());
+            level.addParticle(particle, x, y, z, color.getRed(), color.getGreen(), color.getBlue());
         }
     }
 

@@ -3,7 +3,7 @@ package svenhjol.charmony.chorus_network.common;
 import net.fabricmc.api.ModInitializer;
 import svenhjol.charmony.chorus_network.ChorusNetworkMod;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.ChorusNetwork;
-import svenhjol.charmony.core.enums.Side;
+import svenhjol.charmony.api.core.Side;
 
 public final class CommonInitializer implements ModInitializer {
     @Override
