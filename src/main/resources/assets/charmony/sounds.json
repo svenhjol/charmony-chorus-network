@@ -1,0 +1,62 @@
+{
+  "chest_close": {
+    "sounds": [
+      {
+        "name": "charmony:chest_close1",
+        "volume": 1.0
+      },
+      {
+        "name": "charmony:chest_close2",
+        "volume": 1.0
+      },
+      {
+        "name": "charmony:chest_close3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charmony.block.chest_close"
+  },
+  "chest_open": {
+    "sounds": [
+      {
+        "name": "charmony:chest_open1",
+        "volume": 1.0
+      },
+      {
+        "name": "charmony:chest_open2",
+        "volume": 1.0
+      },
+      {
+        "name": "charmony:chest_open3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charmony.block.chest_open"
+  },
+  "core_create": {
+    "sounds": [
+      {
+        "name": "charmony:core_create1",
+        "volume": 1.0
+      },
+      {
+        "name": "charmony:core_create2",
+        "volume": 1.0
+      },
+      {
+        "name": "charmony:core_create3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charmony.block.core_create"
+  },
+  "seed_implode": {
+    "sounds": [
+      {
+        "name": "charmony:seed_implode",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charmony.block.seed_implode"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "template": {
+    "model": {
+      "type": "minecraft:special",
+      "base": "charmony:item/CORE_MATERIAL_chorus_chest",
+      "model": {
+        "type": "minecraft:chest",
+        "texture": "charmony:CORE_MATERIAL_chorus"
+      }
+    }
+  },
+  "variants": "core_material"
+}

@@ -9,10 +9,10 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charmony.api.chorus_network.ChorusCoreMaterial;
-import svenhjol.charmony.chorus_network.ChorusNetworkMod;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.ChestBlock.ChestBlockItem;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.CoreBlock.CoreBlockItem;
 import svenhjol.charmony.chorus_network.common.features.chorus_network.SeedBlock.SeedBlockItem;
+import svenhjol.charmony.core.Charmony;
 import svenhjol.charmony.core.base.Setup;
 import svenhjol.charmony.core.common.CommonRegistry;
 
@@ -89,7 +89,7 @@ public class Registers extends Setup<ChorusNetwork> {
 
         // TODO: make common registry method for this and for ItemFrameHiding in tweaks mod.
         particleType = Registry.register(BuiltInRegistries.PARTICLE_TYPE,
-            ChorusNetworkMod.id("core_material"),
+            Charmony.id("core_material"),
             new ParticleType());
 
         chestOpenSound = registry.sound("chest_open");

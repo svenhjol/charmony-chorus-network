@@ -1,8 +1,6 @@
 package svenhjol.charmony.chorus_network.common.features.chorus_network;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -12,6 +10,8 @@ import net.minecraft.world.level.block.entity.ChestLidController;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import svenhjol.charmony.api.chorus_network.ChorusCoreMaterial;
 
 @SuppressWarnings("unused")
@@ -73,15 +73,15 @@ public class ChestBlockEntity extends BlockEntity implements LidBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.saveAdditional(tag, provider);
-        tag.putInt(MATERIAL_TAG, material.getId());
+    protected void saveAdditional(ValueOutput valueOutput) {
+        super.saveAdditional(valueOutput);
+        valueOutput.putInt(MATERIAL_TAG, material.getId());
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.loadAdditional(tag, provider);
-        var material = tag.getIntOr(MATERIAL_TAG, 0);
+    protected void loadAdditional(ValueInput valueInput) {
+        super.loadAdditional(valueInput);
+        var material = valueInput.getIntOr(MATERIAL_TAG, 0);
         this.material = ChorusCoreMaterial.byId(material);
     }
 

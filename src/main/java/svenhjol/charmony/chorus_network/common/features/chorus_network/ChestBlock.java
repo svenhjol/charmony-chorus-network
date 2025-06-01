@@ -155,7 +155,7 @@ public class ChestBlock extends AbstractChestBlock<ChestBlockEntity> implements 
     @Override
     protected @Nullable MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
         if (level instanceof ServerLevel serverLevel && level.getBlockEntity(pos) instanceof ChestBlockEntity chest) {
-            var title = Component.translatable("block.charmony-chorus-network." + material.getSerializedName() + "_chorus_chest");
+            var title = Component.translatable("block.charmony." + material.getSerializedName() + "_chorus_chest");
             var container = new ChannelContainer(serverLevel, chest);
 
             var data = new SimpleContainerData(1);

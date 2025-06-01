@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "collapsing=false": {
+      "model": "charmony:block/chorus_seed"
+    },
+    "collapsing=true": {
+      "model": "minecraft:block/air"
+    }
+  }
+}

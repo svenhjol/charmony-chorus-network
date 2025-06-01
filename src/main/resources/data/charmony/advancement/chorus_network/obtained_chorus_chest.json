@@ -1,0 +1,145 @@
+{
+  "parent": "charmony:chorus_network/activated_chorus_seed",
+  "display": {
+    "icon": {
+      "id": "charmony:gold_chorus_chest"
+    },
+    "title": {
+      "translate": "advancements.charmony.obtained_chorus_chest.title"
+    },
+    "description": {
+      "translate": "advancements.charmony.obtained_chorus_chest.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "gold_chorus_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "charmony:gold_chorus_chest"
+          }
+        ]
+      }
+    },
+    "resin_chorus_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "charmony:resin_chorus_chest"
+          }
+        ]
+      }
+    },
+    "copper_chorus_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "charmony:copper_chorus_chest"
+          }
+        ]
+      }
+    },
+    "redstone_chorus_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "charmony:redstone_chorus_chest"
+          }
+        ]
+      }
+    },
+    "amethyst_chorus_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "charmony:amethyst_chorus_chest"
+          }
+        ]
+      }
+    },
+    "lapis_chorus_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "charmony:lapis_chorus_chest"
+          }
+        ]
+      }
+    },
+    "diamond_chorus_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "charmony:diamond_chorus_chest"
+          }
+        ]
+      }
+    },
+    "emerald_chorus_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "charmony:emerald_chorus_chest"
+          }
+        ]
+      }
+    },
+    "netherite_chorus_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "charmony:netherite_chorus_chest"
+          }
+        ]
+      }
+    },
+    "iron_chorus_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "charmony:iron_chorus_chest"
+          }
+        ]
+      }
+    },
+    "quartz_chorus_chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "charmony:quartz_chorus_chest"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "gold_chorus_chest",
+      "resin_chorus_chest",
+      "copper_chorus_chest",
+      "redstone_chorus_chest",
+      "amethyst_chorus_chest",
+      "lapis_chorus_chest",
+      "diamond_chorus_chest",
+      "emerald_chorus_chest",
+      "netherite_chorus_chest",
+      "iron_chorus_chest",
+      "quartz_chorus_chest"
+    ]
+  ]
+}

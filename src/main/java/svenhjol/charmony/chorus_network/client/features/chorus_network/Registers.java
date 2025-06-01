@@ -1,6 +1,6 @@
 package svenhjol.charmony.chorus_network.client.features.chorus_network;
 
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charmony.core.base.Setup;
@@ -11,19 +11,19 @@ public class Registers extends Setup<ChorusNetwork> {
         super(feature);
 
         var registry = ClientRegistry.forFeature(feature);
-        var common = feature.common.get();
+        var commonRegisters = feature.common.get().registers;
 
-        registry.blockRenderType(common.registers.seedBlock, RenderType::cutout);
+        registry.blockRenderType(commonRegisters.seedBlock.get(), ChunkSectionLayer.CUTOUT);
 
-        for (var block : common.registers.coreBlocks.values()) {
-            registry.blockRenderType(block, RenderType::cutout);
+        for (var block : commonRegisters.coreBlocks.values()) {
+            registry.blockRenderType(block.get(), ChunkSectionLayer.CUTOUT);
         }
 
-        registry.blockEntityRenderer(common.registers.seedBlockEntity, () -> SeedRenderer::new);
-        registry.blockEntityRenderer(common.registers.coreBlockEntity, () -> CoreRenderer::new);
-        registry.blockEntityRenderer(common.registers.chestBlockEntity, () -> ChorusChestRenderer::new);
-        registry.particle(feature.common.get().registers.particleType, CoreMaterialParticle.Provider::new);
-        registry.menuScreen(common.registers.menu.get(), ChannelScreen::new);
+        registry.blockEntityRenderer(commonRegisters.seedBlockEntity.get(), SeedRenderer::new);
+        registry.blockEntityRenderer(commonRegisters.coreBlockEntity.get(), CoreRenderer::new);
+        registry.blockEntityRenderer(commonRegisters.chestBlockEntity.get(), ChorusChestRenderer::new);
+        registry.particle(commonRegisters.particleType, CoreMaterialParticle.Provider::new);
+        registry.menuScreen(commonRegisters.menu.get(), ChannelScreen::new);
     }
 
     @Override

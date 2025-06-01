@@ -1,9 +1,0 @@
-{
-  "template": {
-    "model": {
-      "type": "minecraft:model",
-      "model": "charmony-chorus-network:block/CORE_MATERIAL_chorus_core"
-    }
-  },
-  "variants": "core_material"
-}

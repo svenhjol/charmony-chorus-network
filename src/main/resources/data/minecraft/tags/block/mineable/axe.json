@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "charmony-chorus-network:chorus_seed",
-    "#charmony-chorus-network:chorus_chests"
+    "charmony:chorus_seed",
+    "#charmony:chorus_chests"
   ]
 }

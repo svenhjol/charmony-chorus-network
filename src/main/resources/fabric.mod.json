@@ -8,7 +8,7 @@
   "authors": [
     "svenhjol"
   ],
-  "icon": "assets/charmony-chorus-network/textures/gui/sprites/icon.png",
+  "icon": "assets/charmony/textures/gui/sprites/charmony-chorus-network.png",
   "license": "MIT",
   "environment": "*",
   "mixins": [
@@ -23,9 +23,6 @@
     ],
     "client": [
       "svenhjol.charmony.chorus_network.client.ClientInitializer"
-    ],
-    "modmenu": [
-      "svenhjol.charmony.chorus_network.integration.ModMenuPlugin"
     ]
   },
 

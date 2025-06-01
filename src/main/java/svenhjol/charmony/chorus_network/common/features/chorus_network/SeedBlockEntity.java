@@ -1,8 +1,6 @@
 package svenhjol.charmony.chorus_network.common.features.chorus_network;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
@@ -10,6 +8,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import svenhjol.charmony.api.chorus_network.ChorusCoreMaterial;
 import svenhjol.charmony.core.common.SyncedBlockEntity;
 import svenhjol.charmony.core.helpers.PlayerHelper;
@@ -32,21 +32,21 @@ public class SeedBlockEntity extends SyncedBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.loadAdditional(tag, provider);
-        this.collapseTicks = tag.getIntOr(COLLAPSE_TICKS, 0);
+    protected void loadAdditional(ValueInput valueInput) {
+        super.loadAdditional(valueInput);
+        this.collapseTicks = valueInput.getIntOr(COLLAPSE_TICKS, 0);
 
-        var opt = ChorusCoreMaterial.byName(tag.getStringOr(COLLAPSE_MATERIAL, ""));
+        var opt = ChorusCoreMaterial.byName(valueInput.getStringOr(COLLAPSE_MATERIAL, ""));
         opt.ifPresent(material -> this.collapseMaterial = material);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.saveAdditional(tag, provider);
-        tag.putInt(COLLAPSE_TICKS, collapseTicks);
+    protected void saveAdditional(ValueOutput valueOutput) {
+        super.saveAdditional(valueOutput);
+        valueOutput.putInt(COLLAPSE_TICKS, collapseTicks);
 
         if (collapseMaterial != null) {
-            tag.putString(COLLAPSE_MATERIAL, collapseMaterial.getName());
+            valueOutput.putString(COLLAPSE_MATERIAL, collapseMaterial.getName());
         }
     }
 

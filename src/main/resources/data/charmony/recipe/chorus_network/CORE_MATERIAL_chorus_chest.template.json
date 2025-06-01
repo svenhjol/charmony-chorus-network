@@ -1,0 +1,20 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "key": {
+      "#": "minecraft:chorus_flower",
+      "O": "charmony:CORE_MATERIAL_chorus_core"
+    },
+    "pattern": [
+      "###",
+      "#O#",
+      "###"
+    ],
+    "result": {
+      "count": 1,
+      "id": "charmony:CORE_MATERIAL_chorus_chest"
+    }
+  },
+  "variants": "core_material"
+}

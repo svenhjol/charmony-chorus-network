@@ -1,6 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#charmony-chorus-network:chorus_cores"
+    "#charmony:chorus_cores"
   ]
 }

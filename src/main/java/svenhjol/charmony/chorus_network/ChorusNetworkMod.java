@@ -1,9 +1,8 @@
 package svenhjol.charmony.chorus_network;
 
-import net.minecraft.resources.ResourceLocation;
 import svenhjol.charmony.api.core.ModDefinition;
-import svenhjol.charmony.core.base.Mod;
 import svenhjol.charmony.api.core.Side;
+import svenhjol.charmony.core.base.Mod;
 
 @ModDefinition(
     id = ChorusNetworkMod.ID,
@@ -21,9 +20,5 @@ public final class ChorusNetworkMod extends Mod {
             instance = new ChorusNetworkMod();
         }
         return instance;
-    }
-
-    public static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(ID, path);
     }
 }
